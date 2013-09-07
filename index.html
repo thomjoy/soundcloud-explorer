@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="//connect.soundcloud.com/sdk.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <style>
+    * { font-family: 'Helvetica Neue', Helvetica, arial, sans-serif; }
+    body { margin: 0; padding: 0; }
+    #container { width: 800px; margin: 0 auto; }
+
+    select { margin-top: 10px; margin-bottom: 10px; }
+
+    #faves { list-style-type: none; padding: 0; margin: 0; }
+    #faves li { }
+
+    .fav { padding-top: 10px; padding-bottom: 10px; width: 600px; overflow: hidden; }
+    .fav img { width: 84px; box-shadow:0 1px 5px rgba(0,0,0,.25), inset 0 0 1px rgba(255,255,255,.35); float: left; margin-right: 10px; }
+    .fav h3 { font-size: 12px; margin: 0; }
+    .fav h3 a { color: #333; text-decoration: none; }
+    .fav div { margin: 0; font-size: 12px; color: #555; }
+    .loading { text-align: center; }
+  </style>
+  <script>
+    // initialize client with app credentials
+    SC.initialize({
+      client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
+      redirect_uri: 'http://localhost:9999/index.html'
+    });
+
+    $(document).on('ready', function() {
+      // initiate auth popup
+      var favourites = JSON.parse(window.localStorage.getItem('favourites'));
+
+      if( ! favourites ) {
+	$('#container').html('<div class="loading">Loading...</div>');
+
+	SC.connect(function() {
+	  SC.get('/me', function(me) {
+	    SC.get('/users/' + me.id + '/favorites.json?limit=500', function(resp) {
+	      console.log('Got Faves...');
+	      processFavourites(resp);
+	      window.localStorage.setItem('favourites', JSON.stringify(resp));
+	    });
+	  });
+	});
+      }
+      else {
+	processFavourites(favourites);
+      }
+
+      function processFavourites(faves) {
+
+	// DESC
+	faves.sortOldestFirst(function(a, b) {
+	  return (new Date(a.created_at).getTime()) - (new Date(b.created_at).getTime());
+	});
+
+	// ASC
+	faves.sortNewestFirst(function(a, b) {
+	  return (new Date(b.created_at).getTime()) - (new Date(a.created_at).getTime());
+	});
+
+	faves.forEach(function(f) {
+	  console.log(f);
+	  var str = '<li class="fav">';
+	  var image = f.artwork_url ? f.artwork_url : f.user.avatar_url;
+	  str += '<img src="' + image + '" />';
+	  str += '<h3><a href="' + f.permalink_url + '">' + f.title + '</a></h3>';
+	  str += '<div>Created  ' +  f.created_at + '</div>';
+	  str += '<div></div>'
+	  str += '</li>';
+
+	  $('#container #faves').append(str);
+	});
+      }
+    });
+  </script>
+</head>
+<body>
+  <div id="container">
+    <select>
+      <option data-sort="date-desc">Date DESC</option>
+      <option data-sort="date-asc">Date ASC</option>
+    </select>
+
+    <ul id="faves"></ul>
+  </div>
+</body>
+</html>
