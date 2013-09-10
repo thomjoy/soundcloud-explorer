@@ -52,8 +52,8 @@
       width: 52px;
     }
 
-    .fav h3 { font-size: 12px; margin: 0; margin-bottom: 4px; }
-    .fav h3 a { color: #eee; text-decoration: none; }
+    .fav h3 { font-size: 12px; margin: 0; margin-bottom: 4px;}
+    .fav h3 a { color: #eee; text-decoration: none; text-shadow: 0px 1px 1px #000; }
     .fav div { margin: 0; font-size: 11px; color: #ccc; }
     .fav .tag { font-size: 11px; padding: 1px; padding-left: 2px; padding-right: 2px; background-color: #777; color: #fff; margin-right: 4px; }
     .fav .genre { margin-top: 4px; color: #999; }
@@ -69,8 +69,7 @@
 
     $(document).on('ready', function() {
 
-      $('li').on('mousein', function() {
-
+      $('li').on('mouseover', function() {
 	$(this).find('.duration').addClass('show');
       });
 
