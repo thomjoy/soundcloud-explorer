@@ -1,5 +1,6 @@
 requirejs.config({
   waitSeconds: 30,
+  urlBust: '?bust=' + new Date().getTime(),
   paths: {
       // plugins
       //create alias to plugins (not needed if plugins are on the baseUrl)
@@ -20,7 +21,8 @@ requirejs.config({
       jquery:                     'lib/jquery-1.10.2',
       moment:                     'lib/moment',
       'moment-range':             'lib/moment-range',
-      bootstrap: ['//netdna.bootstrapcdn.com/twitter-bootstrap/3.0.0/js/bootstrap.min', 'libs/bootstrap-min']
+      bootstrap: ['//netdna.bootstrapcdn.com/twitter-bootstrap/3.0.0/js/bootstrap.min', 'libs/bootstrap-min'],
+      soundcloud: 'http://connect.soundcloud.com/sdk'
   },
   shim: {
     underscore: {
@@ -33,24 +35,28 @@ requirejs.config({
     bootstrap: {
       deps: ['jquery'],
       exports: '$'
+    },
+    soundcloud: {
+      exports: 'SC',
+      init: function() {
+        SC.initialize({
+          client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
+          redirect_uri: 'http://localhost:9999/index.html'
+        });
+      }
     }
   }
 });
 
 // SoundCloud API
-define('soundcloud',
-    ['async!http://connect.soundcloud.com/sdk.js'],
-    function(){
-        SC.initialize({
-          client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
-          redirect_uri: 'http://localhost:9999/index.html'
-        });
-        SC.connect({
-          client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
-          redirect_uri: 'http://localhost:9999/index.html'
-        });
-        return window.SC;
-    });
+/*define('soundcloud', ['async!http://connect.soundcloud.com/sdk.js'], function(){
+  SC.initialize({
+    client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
+    redirect_uri: 'http://localhost:9999/index.html'
+  });
+  return window.SC;
+});
+*/
 
 // load the app.
 require(['soundcloud', 'backbone', 'main']);
