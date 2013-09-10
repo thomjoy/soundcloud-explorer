@@ -6,8 +6,9 @@ h1 { padding:0; margin: 0px auto; background: url('../img/cloud.png') 0 0; width
 #container { width: auto; margin: 0 auto; padding: 10px; }
 
 .faves { list-style-type: none; padding: 0; margin: 0; margin-bottom: 40px; overflow: hidden; }
-.faves li { overflow: hidden; float: left; overflow: hidden; padding: 4px; margin: 4px; border: 1px solid transparent; }
-.faves li:hover { opacity: 0.8; }
+.faves li { overflow: hidden; float: left; padding: 4px; margin: 4px; border: 1px solid transparent; }
+.faves li { opacity: 1; }
+.faves li.inactive { opacity: 0.4; }
 
 .period-title { margin: 0; clear: both; background: #333; padding: 2px; padding-left: 4px; padding-right: 4px; color: #fff; display: inline-block;}
 .number-of-tracks { margin: 0; font-weight: normal; color: #fff; background-color: #ef932f; padding: 2px; padding-left: 4px; width: 30%; }
@@ -21,28 +22,28 @@ h1 { padding:0; margin: 0px auto; background: url('../img/cloud.png') 0 0; width
 
 }
 .fav .img-container img:hover {
-  opacity: 0.8;
   box-shadow: 0 1px 5px rgba(0,0,0,.25), inset 0 0 8px rgba(0,0,0,.65);
 }
 .fav .img-container .duration {
-  position: bottom;
   display: none;
 }
 .fav .img-container .duration.show {
   z-index: 10;
   display: block;
   position: absolute;
-  top: 0px;
-  left: 0px;
-  background-color: #664864;
+  bottom: 2px;
+  left: 0;
+  background-color: #333;
   color: #fff;
   padding: 2px;
-  padding-left: 4px;
-  width: 52px;
+  padding-bottom: 0px;
+  width: 88px;
+  height: 24px;
+  opacity: 0.9;
 }
 
 .fav h3 { font-size: 12px; margin: 0; margin-bottom: 4px;}
-.fav h3 a { color: #eee; text-decoration: none; text-shadow: 0px 1px 1px #000; }
+.fav h3 a { color: #eee; text-decoration: none; text-shadow: 0 1px 1px #000; }
 .fav div { margin: 0; font-size: 11px; color: #ccc; }
 .fav .tag { font-size: 11px; padding: 1px; padding-left: 2px; padding-right: 2px; background-color: #777; color: #fff; margin-right: 4px; }
 .fav .genre { margin-top: 4px; color: #999; }
