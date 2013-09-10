@@ -2,22 +2,15 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <!-- BootStrap -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+  
   <link href="style/main.css" rel="stylesheet"></link> 
-  <script src="src/lib/underscore.js"></script>
-  <script src="src/lib/backbone.js"></script>
-  <script src="//connect.soundcloud.com/sdk.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="//rawgithub.com/timrwood/moment/2.1.0/moment.js"></script>
-  <script src="src/lib/moment-range.js"></script>
+  <script data-main="app" src="require.js"></script>
 
-  <script>
-    SC.initialize({
-      client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
-      redirect_uri: 'http://localhost:9999/index.html'
-    });
-  </script>
-
-  <script>
+  <!--<script>
     $(document).on('ready', function() {
       
       // initiate auth popup
@@ -240,10 +233,12 @@
       });
 
     });
-  </script>
+  </script>-->
 </head>
 <body>
-  <h1>Explorer</h1>
+  <header>
+    <h1>Explorer</h1>
+  </header>
   <div id="container"></div>
 </body>
 </html>
