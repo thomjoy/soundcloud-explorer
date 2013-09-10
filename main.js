@@ -1,11 +1,15 @@
 // app.js
 define([
   'c/favourites',
-  'v/favourites',
+  'v/favouritelist',
+  'v/favouritesection',
+  'dateranges',
   'soundcloud'
 ], function(
   FavouritesCollection,
-  FavouritesView,
+  FavouritesListView,
+  FavouritesSectionView,
+  DateRanges,
   SC
 ){
   'use strict';
@@ -29,6 +33,16 @@ define([
     favCollection.reset(favourites);
   }
 
-
+  ['today', 'yesterday', 'lastWeek', 'lastYear'].forEach(function(period) {
+    var slice = favCollection.getRange(period);
+    var favouritesView = new FavouritesSectionView({
+      period: period,
+      count: slice.length,
+      favouritesListView: new FavouritesListView({
+        collection: slice
+      })
+    });
+  });
+  
   
 });
