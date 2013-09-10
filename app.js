@@ -20,8 +20,6 @@ requirejs.config({
       jquery:                     'lib/jquery-1.10.2',
       moment:                     'lib/moment',
       'moment-range':             'lib/moment-range',
-      soundcloud:                 '//connect.soundcloud.com/sdk',
-
       bootstrap: ['//netdna.bootstrapcdn.com/twitter-bootstrap/3.0.0/js/bootstrap.min', 'libs/bootstrap-min']
   },
   shim: {
@@ -32,21 +30,27 @@ requirejs.config({
       deps: ['underscore', 'jquery'],
       exports: 'Backbone'
     },
-    soundcloud: {
-      exports: 'SC',
-      init: function(){
-        SC.initialize({
-          client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
-          redirect_uri: 'http://localhost:9999/index.html'
-        });
-      }
-    },
     bootstrap: {
       deps: ['jquery'],
       exports: '$'
     }
   }
 });
+
+// SoundCloud API
+define('soundcloud',
+    ['async!http://connect.soundcloud.com/sdk.js'],
+    function(){
+        SC.initialize({
+          client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
+          redirect_uri: 'http://localhost:9999/index.html'
+        });
+        SC.connect({
+          client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
+          redirect_uri: 'http://localhost:9999/index.html'
+        });
+        return window.SC;
+    });
 
 // load the app.
 require(['soundcloud', 'backbone', 'main']);
