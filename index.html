@@ -4,22 +4,61 @@
   <meta charset="utf-8">
   <script src="//connect.soundcloud.com/sdk.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="//rawgithub.com/timrwood/moment/2.1.0/moment.js"></script>
+  <script src="moment-range.js"></script>
+  <script>moment().format('YYYY-MM-DD HH:mm');</script>
+
   <style>
     * { font-family: 'Helvetica Neue', Helvetica, arial, sans-serif; }
-    body { margin: 0; padding: 0; }
-    #container { width: 800px; margin: 0 auto; }
-
+    body { background: url('tweed.png') 0 0 repeat; margin: 0; padding: 0; padding: 10px; }
     select { margin-top: 10px; margin-bottom: 10px; }
 
-    #faves { list-style-type: none; padding: 0; margin: 0; }
-    #faves li { }
+    h1 { padding:0; margin: 0px auto; background: url('cloud.png') 0 0; width: 48px; height: 27px; }
+    #container { width: auto; margin: 0 auto; padding: 10px; }
 
-    .fav { padding-top: 10px; padding-bottom: 10px; width: 600px; overflow: hidden; }
-    .fav img { width: 84px; box-shadow:0 1px 5px rgba(0,0,0,.25), inset 0 0 1px rgba(255,255,255,.35); float: left; margin-right: 10px; }
-    .fav h3 { font-size: 12px; margin: 0; }
-    .fav h3 a { color: #333; text-decoration: none; }
-    .fav div { margin: 0; font-size: 12px; color: #555; }
+    .faves { list-style-type: none; padding: 0; margin: 0; margin-bottom: 40px; overflow: hidden; }
+    .faves li { overflow: hidden; float: left; overflow: hidden; padding: 4px; margin: 4px; border: 1px solid transparent; }
+    .faves li:hover { opacity: 0.8; }
+
+    .period-title { margin: 0; clear: both; background: #333; padding: 2px; padding-left: 4px; padding-right: 4px; color: #fff; display: inline-block;}
+    .number-of-tracks { margin: 0; font-weight: normal; color: #fff; background-color: #ef932f; padding: 2px; padding-left: 4px; width: 30%; }
+
+    .fav { padding-top: 10px; padding-bottom: 10px; width: 22%; overflow: hidden; }
+    .fav .img-container { position: relative; float: left; overflow: hidden; margin-right: 10px; }
+    .fav .img-container img {
+      z-index: 8;
+      width: 92px;
+      box-shadow:0 1px 5px rgba(0,0,0,.25), inset 0 0 1px rgba(255,255,255,.35);
+
+    }
+    .fav .img-container img:hover {
+      opacity: 0.8;
+      box-shadow: 0 1px 5px rgba(0,0,0,.25), inset 0 0 8px rgba(0,0,0,.65);
+    }
+    .fav .img-container .duration {
+      position: bottom;
+      display: none;
+    }
+    .fav .img-container .duration.show {
+      z-index: 10;
+      display: block;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      background-color: #664864;
+      color: #fff;
+      padding: 2px;
+      padding-left: 4px;
+      width: 52px;
+    }
+
+    .fav h3 { font-size: 12px; margin: 0; margin-bottom: 4px; }
+    .fav h3 a { color: #eee; text-decoration: none; }
+    .fav div { margin: 0; font-size: 11px; color: #ccc; }
+    .fav .tag { font-size: 11px; padding: 1px; padding-left: 2px; padding-right: 2px; background-color: #777; color: #fff; margin-right: 4px; }
+    .fav .genre { margin-top: 4px; color: #999; }
     .loading { text-align: center; }
+
   </style>
   <script>
     // initialize client with app credentials
@@ -29,8 +68,104 @@
     });
 
     $(document).on('ready', function() {
+
+      $('li').on('mousein', function() {
+
+	$(this).find('.duration').addClass('show');
+      });
+
+      $('li').on('mouseout', function() {
+	$(this).find('.duration').removeClass('show');
+      });
+
       // initiate auth popup
       var favourites = JSON.parse(window.localStorage.getItem('favourites'));
+      window.ranges = {
+	    isToday: function(d) {
+	      var start = moment(moment().startOf('day')),
+		  end = moment(moment().endOf('day')),
+		  range = moment().range(start, end);
+
+	      //console.log(range.contains(moment(d)));
+	      return range.contains(moment(d));
+	    },
+	    isYesterday: function(d) {
+	      var start = moment(moment().subtract('days', 1).startOf('day')),
+		  end = moment(moment().subtract('days', 1).endOf('day')),
+		  range = moment().range(start, end);
+
+	      //console.log(range.contains(moment(d)));
+	      return range.contains(moment(d));
+	    },
+	    isThisWeek: function(d) {
+	      var start = moment(moment().subtract('week', 0).startOf('week')),
+		  end   = moment(moment().subtract('week', 0).endOf('week')),
+		  range = moment().range(start, end);
+
+	      //console.log(range.contains(moment(d)));
+	      return range.contains(moment(d));
+	    },
+	    isLastWeek: function(d) {
+	      var start = moment(moment().subtract('week', 1).startOf('week')),
+		  end   = moment(moment().subtract('week', 1).endOf('week')),
+		  range = moment().range(start, end);
+
+	      //console.log(range.contains(moment(d)));
+	      return range.contains(moment(d));
+	    },
+	    isThisMonth: function(d) {
+	      var start = moment(moment().subtract('month', 0).startOf('month')),
+		  end = moment(moment().subtract('month', 0).endOf('month')),
+		  range = moment().range(start, end);
+
+	      //console.log(range.contains(moment(d)));
+	      return range.contains(moment(d));
+	    },
+	    isLastMonth: function(d) {
+	      var start = moment(moment().subtract('month', 1).startOf('month')),
+		  end = moment(moment().subtract('month', 1).endOf('month')),
+		  range = moment().range(start, end);
+
+	      //console.log(range.contains(moment(d)));
+	      return range.contains(moment(d));
+	    },
+	    isLastSixMonths: function(d) {
+	      var start = moment(moment().subtract('month', 0).startOf('month')),
+		  end = moment(moment().subtract('month', 6).endOf('month')),
+		  range = moment().range(start, end);
+
+	      //console.log(range.contains(moment(d)));
+	      return range.contains(moment(d));
+	    },
+	    isThisYear: function(d) {
+	      var start = moment(moment().subtract('year', 0).startOf('year')),
+		  end = moment(moment().subtract('year', 0).endOf('year')),
+		  range = moment().range(start, end);
+
+	      //console.log(range.contains(moment(d)));
+	      return range.contains(moment(d));
+	    },
+	    isLastYear: function(d) {
+	      var start = moment(moment().subtract('year', 1).startOf('year')),
+		  end = moment(moment().subtract('year', 1).endOf('year')),
+		  range = moment().range(start, end);
+
+	      //console.log(range.contains(moment(d)));
+	      return range.contains(moment(d));
+	    }
+	  },
+	  periods = {
+	    today: { title: 'Today', data: [] },
+	    yesterday: { title: 'Yesterday', data: [] },
+	    thisWeek: { title: 'This Week', data: [] },
+	    lastWeek: { title: 'Last Week', data: [] },
+	    thisMonth: { title: 'This Month', data: [] },
+	    lastMonth: { title: 'Last Month', data: [] },
+	    lastSixMonths: { title: 'Six Months', data: [] },
+	    thisYear: { title: 'This Year', data: [] },
+	    lastYear: { title: 'Last Year', data: [] },
+	    theRest: { title: 'The Rest', data: [] }
+	  }
 
       if( ! favourites ) {
 	$('#container').html('<div class="loading">Loading...</div>');
@@ -39,52 +174,113 @@
 	  SC.get('/me', function(me) {
 	    SC.get('/users/' + me.id + '/favorites.json?limit=500', function(resp) {
 	      console.log('Got Faves...');
-	      processFavourites(resp);
+	      groupFavourites(resp);
 	      window.localStorage.setItem('favourites', JSON.stringify(resp));
 	    });
 	  });
 	});
       }
       else {
-	processFavourites(favourites);
+	groupFavourites(favourites);
+	displayFavourites();
       }
 
-      function processFavourites(faves) {
+      function groupFavourites(favourites) {
+	favourites.forEach(function(f) {
+	  var d = new Date(f.created_at);
+	  console.log(d);
 
+	  if( ranges.isToday(d) ) {
+	    periods.today.data.push(f);
+	  }
+	  else if( ranges.isYesterday(d) ) {
+	    periods.yesterday.data.push(f);
+	  }
+	  else if( ranges.isLastWeek(d) ) {
+	    periods.lastWeek.data.push(f);
+	  }
+	  else if( ranges.isThisWeek(d) ) {
+	    periods.thisWeek.data.push(f);
+	  }
+	  else if( ranges.isThisMonth(d) ) {
+	    periods.thisMonth.data.push(f);
+	  }
+	  else if( ranges.isLastMonth(d) ) {
+	    periods.lastMonth.data.push(f);
+	  }
+	  else if( ranges.isLastSixMonths(d) ) {
+	    periods.lastSixMonths.data.push(f);
+	  }
+	  else if( ranges.isThisYear(d) ) {
+	    periods.thisYear.data.push(f);
+	  }
+	  else if( ranges.isLastYear(d) ) {
+	    periods.lastYear.data.push(f);
+	  }
+	  else {
+	    periods.theRest.data.push(f);
+	  }
+	});
+      }
+
+      function displayFavourites() {
 	// DESC
-	faves.sortOldestFirst(function(a, b) {
-	  return (new Date(a.created_at).getTime()) - (new Date(b.created_at).getTime());
-	});
-
+	function oldestFirst(a, b) { return (new Date(a.created_at).getTime()) - (new Date(b.created_at).getTime()); }
 	// ASC
-	faves.sortNewestFirst(function(a, b) {
-	  return (new Date(b.created_at).getTime()) - (new Date(a.created_at).getTime());
-	});
+	function sortNewestFirst(a, b) { return (new Date(b.created_at).getTime()) - (new Date(a.created_at).getTime()); }
 
-	faves.forEach(function(f) {
-	  console.log(f);
-	  var str = '<li class="fav">';
-	  var image = f.artwork_url ? f.artwork_url : f.user.avatar_url;
-	  str += '<img src="' + image + '" />';
-	  str += '<h3><a href="' + f.permalink_url + '">' + f.title + '</a></h3>';
-	  str += '<div>Created  ' +  f.created_at + '</div>';
-	  str += '<div></div>'
-	  str += '</li>';
+	for( var p in periods ) {
 
-	  $('#container #faves').append(str);
-	});
+	  var faves = periods[p].data.sort(sortNewestFirst);
+	  var periodTitle = periods[p].title;
+	  var periodId = periods[p].title.replace(' ', '-').toLowerCase();
+
+	  if( faves.length ) {
+	    $('#container').append('<h3 class="period-title">' +  periodTitle + '</h3><h5 class="number-of-tracks">' + faves.length + ' tracks</h5>');
+	    $('#container').append('<ul id="' + periodId + '" class="faves"></ul>');
+	    faves.forEach(function(f) {
+
+	      var str = '<li class="fav">',
+		  image = f.artwork_url ? f.artwork_url : f.user.avatar_url,
+		  tags = f.tag_list.split(' '),
+		  date = moment(new Date(f.created_at)),
+		  dateCreated = moment(date).format('ddd Do MMM YYYY');
+
+	      str += '<div class="img-container">';
+	      str += '<img src="' + image + '" />';
+	      if( f.duration ) {
+		str += '<div class="duration hide">' + Math.ceil((f.duration / 1000) / 60) + ' mins</div>';
+	      }
+	      str += '</div>';
+
+	      str += '<h3><a href="' + f.permalink_url + '">' + f.title + '</a></h3>';
+	      str += '<div>' +  dateCreated + '</div>';
+
+	      if( f.genre ) {
+		str += '<div class="genre" class="' + f.genre + '">' + f.genre.toUpperCase() + '</div>';
+	      }
+
+	      /*if( tags.length > 0 ) {
+		str += (function() {
+		  var o = '';
+		  tags.forEach(function(t) { o += '<span class="tag">' + t.replace('"', '') + '</span>'; }); return o;
+		})();
+	      }*/
+
+
+
+
+	      str += '</li>';
+	      $('#container #' + periodId ).append(str);
+	    });
+	  }
+	}
       }
     });
   </script>
 </head>
 <body>
-  <div id="container">
-    <select>
-      <option data-sort="date-desc">Date DESC</option>
-      <option data-sort="date-asc">Date ASC</option>
-    </select>
-
-    <ul id="faves"></ul>
-  </div>
+  <h1></h1>
+  <div id="container"></div>
 </body>
 </html>
