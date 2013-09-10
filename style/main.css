@@ -2,7 +2,16 @@
 body { background: url('../img/tweed.png') 0 0 repeat; margin: 0; padding: 0; padding: 10px; }
 select { margin-top: 10px; margin-bottom: 10px; }
 
-h1 { padding:0; margin: 0px auto; background: url('../img/cloud.png') 0 0; width: 48px; height: 27px; }
+h1 { 
+  padding-left: 52px;
+  margin: 0px auto;
+  background: url('../img/cloud.png') 0 0 no-repeat;
+  width: 48px;
+  height: 27px; 
+  font-size: 18px;
+  color: #fff;
+  line-height: 29px;
+}
 #container { width: auto; margin: 0 auto; padding: 10px; }
 
 .faves { list-style-type: none; padding: 0; margin: 0; margin-bottom: 40px; overflow: hidden; }
@@ -16,17 +25,15 @@ h1 { padding:0; margin: 0px auto; background: url('../img/cloud.png') 0 0; width
 .fav { padding-top: 10px; padding-bottom: 10px; width: 22%; overflow: hidden; }
 .fav .img-container { position: relative; float: left; overflow: hidden; margin-right: 10px; }
 .fav .img-container img {
+  -webkit-filter: grayscale(0);
   z-index: 8;
   width: 92px;
-  box-shadow:0 1px 5px rgba(0,0,0,.25), inset 0 0 1px rgba(255,255,255,.35);
+  box-shadow: 0 1px 6px rgba(0,0,0,.65), inset 0 0 1px rgba(255,255,255,.65);
+}
+.fav .img-container img.bw { -webkit-filter: grayscale(1); }
+.fav .img-container img:hover { cursor: pointer; }
 
-}
-.fav .img-container img:hover {
-  box-shadow: 0 1px 5px rgba(0,0,0,.25), inset 0 0 8px rgba(0,0,0,.65);
-}
-.fav .img-container .duration {
-  display: none;
-}
+.fav .img-container .duration { display: none; }
 .fav .img-container .duration.show {
   z-index: 10;
   display: block;
@@ -40,6 +47,7 @@ h1 { padding:0; margin: 0px auto; background: url('../img/cloud.png') 0 0; width
   width: 88px;
   height: 24px;
   opacity: 0.9;
+  text-align: center;
 }
 
 .fav h3 { font-size: 12px; margin: 0; margin-bottom: 4px;}

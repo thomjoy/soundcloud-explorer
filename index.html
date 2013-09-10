@@ -3,19 +3,21 @@
 <head>
   <meta charset="utf-8">
   <link href="style/main.css" rel="stylesheet"></link> 
+  <script src="src/lib/underscore.js"></script>
+  <script src="src/lib/backbone.js"></script>
   <script src="//connect.soundcloud.com/sdk.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="//rawgithub.com/timrwood/moment/2.1.0/moment.js"></script>
-  <script src="moment-range.js"></script>
-  <script>moment().format('YYYY-MM-DD HH:mm');</script>
+  <script src="src/lib/moment-range.js"></script>
 
   <script>
-    // initialize client with app credentials
     SC.initialize({
       client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
       redirect_uri: 'http://localhost:9999/index.html'
     });
+  </script>
 
+  <script>
     $(document).on('ready', function() {
       
       // initiate auth popup
@@ -178,13 +180,14 @@
           if( faves.length ) {
             $('#container').append('<h3 class="period-title">' +  periodTitle + '</h3><h5 class="number-of-tracks">' + faves.length + ' tracks</h5>');
             $('#container').append('<ul id="' + periodId + '" class="faves"></ul>');
+
             faves.forEach(function(f) {
 
               var str = '<li class="fav">',
-            image = f.artwork_url ? f.artwork_url : f.user.avatar_url,
-            tags = f.tag_list.split(' '),
-            date = moment(new Date(f.created_at)),
-            dateCreated = moment(date).format('ddd Do MMM YYYY');
+                  image = f.artwork_url ? f.artwork_url : f.user.avatar_url,
+                  tags = f.tag_list.split(' '),
+                  date = moment(new Date(f.created_at)),
+                  dateCreated = moment(date).format('ddd Do MMM YYYY');
 
               str += '<div class="img-container">';
               str += '<img src="' + image + '" />';
@@ -215,16 +218,23 @@
       }
 
       $('li').on('mouseenter', function() {
-        $(this).find('.duration').addClass('show');
+        var $this = $(this);
+        
+        _.delay(function() {
+          $this.find('.duration').addClass('show');
+        }, 250);
+
         $(this).css('opacity', '1');
-        $('li:not(:hover)').stop().fadeTo('slow', 0.5, function() {
+        $('li:not(:hover) img').addClass('bw');
+        $('li:not(:hover)').stop().fadeTo('normal', 0.5, function() {
           // Animation complete.
         });
       });
 
       $('li').on('mouseleave', function() {
         $(this).find('.duration').removeClass('show');
-        $('li').stop().fadeTo('slow', 1, function() {
+        $('li:not(:hover) img').removeClass('bw');
+        $('li').stop().fadeTo('normal', 1, function() {
           // Animation complete.
         });
       });
@@ -233,7 +243,7 @@
   </script>
 </head>
 <body>
-  <h1></h1>
+  <h1>Explorer</h1>
   <div id="container"></div>
 </body>
 </html>
