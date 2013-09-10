@@ -1,0 +1,49 @@
+* { font-family: 'Helvetica Neue', Helvetica, arial, sans-serif; }
+body { background: url('tweed.png') 0 0 repeat; margin: 0; padding: 0; padding: 10px; }
+select { margin-top: 10px; margin-bottom: 10px; }
+
+h1 { padding:0; margin: 0px auto; background: url('cloud.png') 0 0; width: 48px; height: 27px; }
+#container { width: auto; margin: 0 auto; padding: 10px; }
+
+.faves { list-style-type: none; padding: 0; margin: 0; margin-bottom: 40px; overflow: hidden; }
+.faves li { overflow: hidden; float: left; overflow: hidden; padding: 4px; margin: 4px; border: 1px solid transparent; }
+.faves li:hover { opacity: 0.8; }
+
+.period-title { margin: 0; clear: both; background: #333; padding: 2px; padding-left: 4px; padding-right: 4px; color: #fff; display: inline-block;}
+.number-of-tracks { margin: 0; font-weight: normal; color: #fff; background-color: #ef932f; padding: 2px; padding-left: 4px; width: 30%; }
+
+.fav { padding-top: 10px; padding-bottom: 10px; width: 22%; overflow: hidden; }
+.fav .img-container { position: relative; float: left; overflow: hidden; margin-right: 10px; }
+.fav .img-container img {
+  z-index: 8;
+  width: 92px;
+  box-shadow:0 1px 5px rgba(0,0,0,.25), inset 0 0 1px rgba(255,255,255,.35);
+
+}
+.fav .img-container img:hover {
+  opacity: 0.8;
+  box-shadow: 0 1px 5px rgba(0,0,0,.25), inset 0 0 8px rgba(0,0,0,.65);
+}
+.fav .img-container .duration {
+  position: bottom;
+  display: none;
+}
+.fav .img-container .duration.show {
+  z-index: 10;
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: #664864;
+  color: #fff;
+  padding: 2px;
+  padding-left: 4px;
+  width: 52px;
+}
+
+.fav h3 { font-size: 12px; margin: 0; margin-bottom: 4px;}
+.fav h3 a { color: #eee; text-decoration: none; text-shadow: 0px 1px 1px #000; }
+.fav div { margin: 0; font-size: 11px; color: #ccc; }
+.fav .tag { font-size: 11px; padding: 1px; padding-left: 2px; padding-right: 2px; background-color: #777; color: #fff; margin-right: 4px; }
+.fav .genre { margin-top: 4px; color: #999; }
+.loading { text-align: center; }
