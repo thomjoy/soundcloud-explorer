@@ -11,7 +11,7 @@ define([
     
     tagName: 'li',
 
-    className: 'faves',
+    className: 'fav',
 
     template: templates.favouriteItem,
 
