@@ -5,7 +5,6 @@ define(['backbone'], function(Backbone) {
     initialize: function() {
       _.extend(this, this.options);
     }
-
+    
   });
-
 });

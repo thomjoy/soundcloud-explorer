@@ -32,7 +32,6 @@ define([
       _.each(this.collection, function(model) {
         var view = new FavouriteItem({ model: model });
         _this.$el.append(view.render());
-        console.log(_this.$el);
       });
 
       return this;

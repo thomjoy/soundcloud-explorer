@@ -19,9 +19,7 @@ define([
 
     initialize: function() {
       _.extend(this, this.options);
-
       this.render();
-      console.log(this.options);
     },
 
     render: function() {
