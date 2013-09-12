@@ -16,7 +16,8 @@ define([
 
     events: {
       'mouseenter .fav': 'mouseEnter',
-      'mouseleave .fav': 'mouseLeave'
+      'mouseleave .fav': 'mouseLeave',
+      'mousewheel .fav': 'mouseWheel'
     },
 
     initialize: function() {
@@ -40,19 +41,22 @@ define([
       return this;
     },
 
-    mouseEnter: function(evt) {
+    mouseEnter: _.debounce(function(evt) {
       var $this = $(this);
 
+      /*
       _.delay(function() {
         $this.find('.duration').addClass('show');
       }, 250);
+      */
 
       $(this).css('opacity', '1');
+      $this.find('img').removeClass('bw');
       $('li:not(:hover) img').addClass('bw');
       $('li:not(:hover)').stop().fadeTo('normal', 0.5, function() {
         // Animation complete.
       });
-    },
+    }, 250, true),
 
     mouseLeave: function(evt) {
       $(this).find('.duration').removeClass('show');
@@ -60,6 +64,11 @@ define([
       $('li').stop().fadeTo('normal', 1, function() {
         // Animation complete.
       });
-    }
+    },
+
+    mouseWheel: _.debounce(function(evt) {
+      console.log(evt);
+      $('li img').removeClass('bw');
+    }, 250, true)
   });
 });
