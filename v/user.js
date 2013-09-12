@@ -14,19 +14,19 @@ define([
     initialize: function() {
       _.extend(this, this.options);
       this.listenTo(this.model, 'change', this.render);
-
       this.render();
     },
 
     render: function() {
       var templateData = _.extend({}, {
-        avatar_url: this.model.get('avatar_url') || '',
-        full_name: this.model.get('full_name') || '',
-        permalink: this.model.get('permalink') || ''
+        avatarUrl: this.model.get('avatar_url') || '',
+        fullName: this.model.get('full_name') || '',
+        username: this.model.get('username') || '',
+        favouritesCount: this.model.get('public_favorites_count') || 0
       });
       this.$el
         .html(_.template(this.template, templateData))
-        .appendTo('#user');
+        .appendTo('#user-sidebar');
     }
   });
 });

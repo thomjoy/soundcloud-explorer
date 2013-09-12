@@ -42,7 +42,7 @@ define([
 
     mouseEnter: function(evt) {
       var $this = $(this);
-      console.log(evt);
+
       _.delay(function() {
         $this.find('.duration').addClass('show');
       }, 250);
@@ -55,7 +55,6 @@ define([
     },
 
     mouseLeave: function(evt) {
-      console.log(evt);
       $(this).find('.duration').removeClass('show');
       $('li:not(:hover) img').removeClass('bw');
       $('li').stop().fadeTo('normal', 1, function() {

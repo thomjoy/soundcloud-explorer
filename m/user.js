@@ -23,6 +23,7 @@ define([
       SC.connect(function() {
         SC.get('/me', function(user) {
           _this.set(user);
+          console.log(_this.attributes);
           def.resolve();
           window.localStorage.setItem('scUser', JSON.stringify(user));
           console.log('User ' + _this.get('permalink') + ' fetched');
