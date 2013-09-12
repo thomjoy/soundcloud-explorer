@@ -22,8 +22,9 @@ define([
       SC.connect(function() {
         SC.get('/me', function(user) {
           window.localStorage.setItem('scUser', JSON.stringify(user));
-          _.extend(_this.attributes, user);
+          _this.set(user);
           def.resolve();
+          console.log('User ' + this.get('permalink') + ' fetched');
         });
       });
 

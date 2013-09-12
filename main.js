@@ -5,6 +5,7 @@ define([
   'v/favouritesection',
   'dateranges',
   'm/user',
+  'v/user',
   'soundcloud'
 ], function(
   FavouritesCollection,
@@ -12,6 +13,7 @@ define([
   FavouritesSectionView,
   DateRanges,
   User,
+  UserView,
   SC
 ){
   'use strict';
@@ -40,7 +42,10 @@ define([
   }
 
   // Get some data for the user.
-  var User = new User,
+  var userModel = new User,
+      userView = new UserView({
+        model: userModel,
+      }),
       periodMap = {
         'today':          'Today',
         'yesterday':      'Yesterday',
@@ -54,8 +59,8 @@ define([
         'theRest':        'The Rest (2+ years)',
       };
 
-  $.when( User.fetch() ).done(function() {
-    console.log(User.get('full_name'));
+  $.when( userModel.fetch() ).done(function() {
+    console.log(userModel.get('full_name'));
   });
 
   _.keys(periodMap).forEach(function(period) {
