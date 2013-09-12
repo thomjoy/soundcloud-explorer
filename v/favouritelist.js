@@ -15,8 +15,8 @@ define([
     template: templates.favourites,
 
     events: {
-      '.fav mouseenter': 'mouseEnter',
-      '.fav mouseleave': 'mouseLeave'
+      'mouseenter .fav': 'mouseEnter',
+      'mouseleave .fav': 'mouseLeave'
     },
 
     initialize: function() {

@@ -13,6 +13,7 @@ define([
 
     initialize: function() {
       _.extend(this, this.options);
+      this.fetch();
     },
 
     fetch: function() {
@@ -21,10 +22,10 @@ define([
 
       SC.connect(function() {
         SC.get('/me', function(user) {
-          window.localStorage.setItem('scUser', JSON.stringify(user));
           _this.set(user);
           def.resolve();
-          console.log('User ' + this.get('permalink') + ' fetched');
+          window.localStorage.setItem('scUser', JSON.stringify(user));
+          console.log('User ' + _this.get('permalink') + ' fetched');
         });
       });
 

@@ -42,7 +42,7 @@ define([
   }
 
   // Get some data for the user.
-  var userModel = new User,
+  var userModel = new User(),
       userView = new UserView({
         model: userModel,
       }),
@@ -58,10 +58,6 @@ define([
         'lastYear':       'Last Year',
         'theRest':        'The Rest (2+ years)',
       };
-
-  $.when( userModel.fetch() ).done(function() {
-    console.log(userModel.get('full_name'));
-  });
 
   _.keys(periodMap).forEach(function(period) {
     var slice = favCollection.getRange(period, 'Desc'),

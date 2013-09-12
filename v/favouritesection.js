@@ -23,9 +23,15 @@ define([
     },
 
     render: function() {
+      var countString = (function(c) {
+        if( c === 0 ) return 'No tracks';
+        else if( c === 1 ) return '1 track';
+        else return c + ' tracks';
+      })(this.count);
+
       this.$el.html(_.template(this.template, {
         period: this.period,
-        count: this.count,
+        count: countString
       }));
 
       this.$el.append(this.favouritesListView.$el);
