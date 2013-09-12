@@ -15,11 +15,13 @@ define([
       _.extend(this, this.options);
     },
 
-    getFavourites: function() {
-      return SC.get('/users/' + me.id + '/favorites.json?limit=500', function(resp) {
-        console.log('Got Faves...');
-        window.localStorage.setItem('favourites', JSON.stringify(resp));
-        return resp;
+    fetch: function() {
+      return SC.connect(function() {
+        SC.get('/me', function(resp) {
+          console.log('Got User...');
+          window.localStorage.setItem('scUser', JSON.stringify(resp));
+          return resp;
+        });
       });
     }
   });

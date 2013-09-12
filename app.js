@@ -49,7 +49,7 @@ requirejs.config({
         console.log(SC);
         SC.initialize({
           client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
-          redirect_uri: 'http://localhost:9999/index.html'
+          redirect_uri: 'http://localhost:9999/callback.html'
         });
       }
     }

@@ -4,12 +4,14 @@ define([
   'v/favouritelist',
   'v/favouritesection',
   'dateranges',
+  'm/user',
   'soundcloud'
 ], function(
   FavouritesCollection,
   FavouritesListView,
   FavouritesSectionView,
   DateRanges,
+  User,
   SC
 ){
   'use strict';
@@ -37,34 +39,34 @@ define([
     favCollection.reset(favourites);
   }
 
-  SC.get('/me', function(me) {
-    console.log(me);
-  });
+  // Get some data for the user.
+  var User = new User,
+      periodMap = {
+        'today':          'Today',
+        'yesterday':      'Yesterday',
+        'thisWeek':       'This Week',
+        'lastWeek':       'Last Week',
+        'thisMonth':      'This Month',
+        'lastMonth':      'Last Month',
+        'lastSixMonths':  'Last Six Months',
+        'thisYear':       'This Year',
+        'lastYear':       'Last Year',
+        'theRest':        'The Rest (2+ years)',
+      };
 
-  var periodMap = {
-    'today':          'Today',
-    'yesterday':      'Yesterday',
-    'thisWeek':       'This Week',
-    'lastWeek':       'Last Week',
-    'thisMonth':      'This Month',
-    'lastMonth':      'Last Month',
-    'lastSixMonths':  'Last Six Months',
-    'thisYear':       'This Year',
-    'lastYear':       'Last Year',
-    'theRest':        'The Rest (2+ years)',
-  };
+  $.when( User.fetch() ).done(function() {
+    alert('User fetched');
+  });
 
   _.keys(periodMap).forEach(function(period) {
-    var slice = favCollection.getRange(period, 'Desc');
-    var favouritesView = new FavouritesSectionView({
-      period: periodMap[period],
-      count: slice.length,
-      total: favCollection.length,
-      favouritesListView: new FavouritesListView({
-        collection: slice
-      })
-    });
+    var slice = favCollection.getRange(period, 'Desc'),
+        favouritesView = new FavouritesSectionView({
+          period: periodMap[period],
+          count: slice.length,
+          total: favCollection.length,
+          favouritesListView: new FavouritesListView({
+            collection: slice
+          })
+        });
   });
-  
-  
 });
