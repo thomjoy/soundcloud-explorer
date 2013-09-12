@@ -55,7 +55,7 @@ define([
       };
 
   $.when( User.fetch() ).done(function() {
-    alert('User fetched');
+    console.log(User.get('full_name'));
   });
 
   _.keys(periodMap).forEach(function(period) {

@@ -8,7 +8,7 @@ define([
 
   return Backbone.Model.extend({
     url: function() {
-      return SC.get('/me', function(me) { console.log(me); });
+      return '/me';
     },
 
     initialize: function() {
@@ -16,13 +16,18 @@ define([
     },
 
     fetch: function() {
-      return SC.connect(function() {
-        SC.get('/me', function(resp) {
-          console.log('Got User...');
-          window.localStorage.setItem('scUser', JSON.stringify(resp));
-          return resp;
+      var def = new $.Deferred(),
+          _this = this;
+
+      SC.connect(function() {
+        SC.get('/me', function(user) {
+          window.localStorage.setItem('scUser', JSON.stringify(user));
+          _.extend(_this.attributes, user);
+          def.resolve();
         });
       });
+
+      return def.promise();
     }
   });
 });
