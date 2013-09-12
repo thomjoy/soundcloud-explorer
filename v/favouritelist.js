@@ -43,13 +43,6 @@ define([
 
     mouseEnter: _.debounce(function(evt) {
       var $this = $(this);
-
-      /*
-      _.delay(function() {
-        $this.find('.duration').addClass('show');
-      }, 250);
-      */
-
       $(this).css('opacity', '1');
       $this.find('img').removeClass('bw');
       $('li:not(:hover) img').addClass('bw');
