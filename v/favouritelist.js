@@ -14,7 +14,10 @@ define([
 
     template: templates.favourites,
 
-    events: { },
+    events: {
+      '.fav mouseenter': 'mouseEnter',
+      '.fav mouseleave': 'mouseLeave'
+    },
 
     initialize: function() {
       _.extend(this, this.options);
@@ -35,6 +38,29 @@ define([
       });
 
       return this;
+    },
+
+    mouseEnter: function(evt) {
+      var $this = $(this);
+      console.log(evt);
+      _.delay(function() {
+        $this.find('.duration').addClass('show');
+      }, 250);
+
+      $(this).css('opacity', '1');
+      $('li:not(:hover) img').addClass('bw');
+      $('li:not(:hover)').stop().fadeTo('normal', 0.5, function() {
+        // Animation complete.
+      });
+    },
+
+    mouseLeave: function(evt) {
+      console.log(evt);
+      $(this).find('.duration').removeClass('show');
+      $('li:not(:hover) img').removeClass('bw');
+      $('li').stop().fadeTo('normal', 1, function() {
+        // Animation complete.
+      });
     }
   });
 });

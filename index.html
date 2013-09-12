@@ -11,206 +11,8 @@
   <script src="//connect.soundcloud.com/sdk.js"></script>
   <script data-main="app" src="require.js"></script>
 
-  <!--<script>
-    $(document).on('ready', function() {
-      
-      // initiate auth popup
-      var favourites = JSON.parse(window.localStorage.getItem('favourites'));
-          window.ranges = {
-          isToday: function(d) {
-            var start = moment(moment().startOf('day')),
-                end = moment(moment().endOf('day')),
-                range = moment().range(start, end);
-
-            //console.log(range.contains(moment(d)));
-            return range.contains(moment(d));
-          },
-          isYesterday: function(d) {
-            var start = moment(moment().subtract('days', 1).startOf('day')),
-                end = moment(moment().subtract('days', 1).endOf('day')),
-                range = moment().range(start, end);
-
-            //console.log(range.contains(moment(d)));
-            return range.contains(moment(d));
-          },
-          isThisWeek: function(d) {
-            var start = moment(moment().subtract('week', 0).startOf('week')),
-                end   = moment(moment().subtract('week', 0).endOf('week')),
-                range = moment().range(start, end);
-
-            //console.log(range.contains(moment(d)));
-            return range.contains(moment(d));
-          },
-          isLastWeek: function(d) {
-            var start = moment(moment().subtract('week', 1).startOf('week')),
-                end   = moment(moment().subtract('week', 1).endOf('week')),
-                range = moment().range(start, end);
-
-            //console.log(range.contains(moment(d)));
-            return range.contains(moment(d));
-          },
-          isThisMonth: function(d) {
-            var start = moment(moment().subtract('month', 0).startOf('month')),
-                end = moment(moment().subtract('month', 0).endOf('month')),
-                range = moment().range(start, end);
-
-            //console.log(range.contains(moment(d)));
-            return range.contains(moment(d));
-          },
-          isLastMonth: function(d) {
-            var start = moment(moment().subtract('month', 1).startOf('month')),
-                end = moment(moment().subtract('month', 1).endOf('month')),
-                range = moment().range(start, end);
-
-            //console.log(range.contains(moment(d)));
-            return range.contains(moment(d));
-          },
-          isLastSixMonths: function(d) {
-            var start = moment(moment().subtract('month', 0).startOf('month')),
-                end = moment(moment().subtract('month', 6).endOf('month')),
-                range = moment().range(start, end);
-
-            //console.log(range.contains(moment(d)));
-            return range.contains(moment(d));
-          },
-          isThisYear: function(d) {
-            var start = moment(moment().subtract('year', 0).startOf('year')),
-                end = moment(moment().subtract('year', 0).endOf('year')),
-                range = moment().range(start, end);
-
-            //console.log(range.contains(moment(d)));
-            return range.contains(moment(d));
-          },
-          isLastYear: function(d) {
-            var start = moment(moment().subtract('year', 1).startOf('year')),
-                end = moment(moment().subtract('year', 1).endOf('year')),
-                range = moment().range(start, end);
-
-            //console.log(range.contains(moment(d)));
-            return range.contains(moment(d));
-          }
-        },
-        periods = {
-          today: { title: 'Today', data: [] },
-          yesterday: { title: 'Yesterday', data: [] },
-          thisWeek: { title: 'This Week', data: [] },
-          lastWeek: { title: 'Last Week', data: [] },
-          thisMonth: { title: 'This Month', data: [] },
-          lastMonth: { title: 'Last Month', data: [] },
-          lastSixMonths: { title: 'Six Months', data: [] },
-          thisYear: { title: 'This Year', data: [] },
-          lastYear: { title: 'Last Year', data: [] },
-          theRest: { title: 'The Rest', data: [] }
-        }
-
-        if( ! favourites ) {
-          $('#container').html('<div class="loading">Loading...</div>');
-
-          SC.connect(function() {
-            SC.get('/me', function(me) {
-              SC.get('/users/' + me.id + '/favorites.json?limit=500', function(resp) {
-                console.log('Got Faves...');
-                groupFavourites(resp);
-                window.localStorage.setItem('favourites', JSON.stringify(resp));
-              });
-            });
-          });
-        }
-        else {
-          groupFavourites(favourites);
-          displayFavourites();
-        }
-
-        function groupFavourites(favourites) {
-          favourites.forEach(function(f) {
-            var d = new Date(f.created_at);
-            console.log(d);
-
-            if( ranges.isToday(d) ) {
-              periods.today.data.push(f);
-            }
-            else if( ranges.isYesterday(d) ) {
-              periods.yesterday.data.push(f);
-            }
-            else if( ranges.isLastWeek(d) ) {
-              periods.lastWeek.data.push(f);
-            }
-            else if( ranges.isThisWeek(d) ) {
-              periods.thisWeek.data.push(f);
-            }
-            else if( ranges.isThisMonth(d) ) {
-              periods.thisMonth.data.push(f);
-            }
-            else if( ranges.isLastMonth(d) ) {
-              periods.lastMonth.data.push(f);
-            }
-            else if( ranges.isLastSixMonths(d) ) {
-              periods.lastSixMonths.data.push(f);
-            }
-            else if( ranges.isThisYear(d) ) {
-              periods.thisYear.data.push(f);
-            }
-            else if( ranges.isLastYear(d) ) {
-              periods.lastYear.data.push(f);
-            }
-            else {
-              periods.theRest.data.push(f);
-            }
-          });
-        }
-
-      function displayFavourites() {
-        // DESC
-        function oldestFirst(a, b) { return (new Date(a.created_at).getTime()) - (new Date(b.created_at).getTime()); }
-        // ASC
-        function sortNewestFirst(a, b) { return (new Date(b.created_at).getTime()) - (new Date(a.created_at).getTime()); }
-
-        for( var p in periods ) {
-
-          var faves = periods[p].data.sort(sortNewestFirst);
-          var periodTitle = periods[p].title;
-          var periodId = periods[p].title.replace(' ', '-').toLowerCase();
-
-          if( faves.length ) {
-            $('#container').append('<h3 class="period-title">' +  periodTitle + '</h3><h5 class="number-of-tracks">' + faves.length + ' tracks</h5>');
-            $('#container').append('<ul id="' + periodId + '" class="faves"></ul>');
-
-            faves.forEach(function(f) {
-
-              var str = '<li class="fav">',
-                  image = f.artwork_url ? f.artwork_url : f.user.avatar_url,
-                  tags = f.tag_list.split(' '),
-                  date = moment(new Date(f.created_at)),
-                  dateCreated = moment(date).format('ddd Do MMM YYYY');
-
-              str += '<div class="img-container">';
-              str += '<img src="' + image + '" />';
-              if( f.duration ) {
-                str += '<div class="duration hide">' + Math.ceil((f.duration / 1000) / 60) + ' mins</div>';
-              }
-              str += '</div>';
-
-              str += '<h3><a href="' + f.permalink_url + '">' + f.title + '</a></h3>';
-              str += '<div>' +  dateCreated + '</div>';
-
-              if( f.genre ) {
-                str += '<div class="genre" class="' + f.genre + '">' + f.genre.toUpperCase() + '</div>';
-              }
-
-              /*if( tags.length > 0 ) {
-                str += (function() {
-                  var o = '';
-                  tags.forEach(function(t) { o += '<span class="tag">' + t.replace('"', '') + '</span>'; }); return o;
-                })();
-              }*/
-
-              str += '</li>';
-              $('#container #' + periodId ).append(str);
-            });
-          }
-        }
-      }
-
+  <!--
+  <script>
       $('li').on('mouseenter', function() {
         var $this = $(this);
         
@@ -234,12 +36,14 @@
       });
 
     });
-  </script>-->
+  </script>
+  -->
 </head>
 <body>
   <header>
     <h1>Explorer</h1>
   </header>
+
   <div id="container"></div>
 </body>
 </html>

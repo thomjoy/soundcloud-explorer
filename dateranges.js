@@ -4,7 +4,6 @@ define(['moment', 'moment-range'], function(moment) {
       var start = moment(moment().startOf('day')),
           end = moment(moment().endOf('day')),
           range = moment().range(start, end);
-      console.log(d);
       return range.contains(moment(new Date(d)));
     },
     yesterday: function(d) {
@@ -43,8 +42,8 @@ define(['moment', 'moment-range'], function(moment) {
       return range.contains(moment(new Date(d)));
     },
     lastSixMonths: function(d) {
-      var start = moment(moment().subtract('month', 0).startOf('month')),
-          end = moment(moment().subtract('month', 6).endOf('month')),
+      var start = moment(moment().subtract('month', 6).endOf('month')),
+          end = moment(moment().subtract('month', 0).startOf('month')),
           range = moment().range(start, end);
 
       return range.contains(moment(new Date(d)));
@@ -64,8 +63,8 @@ define(['moment', 'moment-range'], function(moment) {
       return range.contains(moment(new Date(d)));
     },
     theRest: function(d) {
-      var start = moment(moment().subtract('year', 2).startOf('year')),
-          end = moment(moment().subtract('year', 100).endOf('year')),
+      var start = moment(moment().subtract('year', 5).endOf('year')),
+          end = moment(moment().subtract('year', 2).startOf('year')),
           range = moment().range(start, end);
 
       return range.contains(moment(new Date(d)));

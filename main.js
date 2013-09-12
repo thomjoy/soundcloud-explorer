@@ -26,7 +26,6 @@ define([
     });
     SC.connect(function() {
       SC.get('/me', function(me) {
-        console.log(me);
         SC.get('/users/' + me.id + '/favorites.json?limit=500', function(resp) {
           window.localStorage.setItem('favourites', JSON.stringify(resp));
           favCollection.reset(JSON.parse(resp));
@@ -37,6 +36,10 @@ define([
   else {
     favCollection.reset(favourites);
   }
+
+  SC.get('/me', function(me) {
+    console.log(me);
+  });
 
   var periodMap = {
     'today':          'Today',
@@ -56,6 +59,7 @@ define([
     var favouritesView = new FavouritesSectionView({
       period: periodMap[period],
       count: slice.length,
+      total: favCollection.length,
       favouritesListView: new FavouritesListView({
         collection: slice
       })
