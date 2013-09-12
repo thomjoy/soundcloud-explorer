@@ -2,6 +2,29 @@
 body { background: url('../img/tweed.png') 0 0 repeat; margin: 0; padding: 0; padding: 10px; }
 select { margin-top: 10px; margin-bottom: 10px; }
 
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  background: #000;
+  background-image: -webkit-gradient(radial,50% 50%,0,50% 50%,100,color-stop(10%,rgba(0,0,0,0)),color-stop(100%,rgba(0,0,0,0.6)));
+  background-image: -webkit-radial-gradient(rgba(0,0,0,0) 10%,rgba(0,0,0,0.6));
+  background-image: -moz-radial-gradient(rgba(0,0,0,0) 10%,rgba(0,0,0,0.6));
+  background-image: -o-radial-gradient(rgba(0,0,0,0) 10%,rgba(0,0,0,0.6));
+  background-image: radial-gradient(rgba(0,0,0,0) 10%,rgba(0,0,0,0.6));
+  background-color: rgba(61,67,76,0.7);
+  opacity: 0;
+  -webkit-transition: 250ms opacity linear;
+  -moz-transition: 250ms opacity linear;
+  -ms-transition: 250ms opacity linear;
+  -o-transition: 250ms opacity linear;
+  transition: 250ms opacity linear;
+}
+.overlay.active { z-index: 9999; opacity: 1; }
+
 h1 { 
   padding-left: 52px;
   background: url('../img/cloud.png') 0 0 no-repeat;

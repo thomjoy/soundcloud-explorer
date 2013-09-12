@@ -11,8 +11,33 @@ define([
 
     model: Favourite,
 
+    defaults: {
+      userId: 0
+    },
+
     initialize: function() {
       _.extend(this, this.options);
+    },
+
+    fetch: function() {
+      var _this = this,
+          def = new $.Deferred(),
+          userId = this.get('userId');
+
+      SC.initialize({
+        client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
+        redirect_uri: 'http://localhost:9999/callback.html'
+      });
+
+      SC.connect(function() {
+        SC.get('/users/' + userId + '/favorites.json?limit=250', function(resp) {
+          window.localStorage.setItem('favourites', JSON.stringify(resp));
+          _this.reset(resp);
+          def.resolve();
+        });
+      });
+
+      return def.promise();
     },
 
     getRange: function(filter, sortDir) {

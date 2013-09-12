@@ -18,11 +18,13 @@ define([
 ){
   'use strict';
 
-  var favourites = JSON.parse(window.localStorage.getItem('favourites')),
-      favCollection = new FavouritesCollection(favourites);
+  //var favourites = JSON.parse(window.localStorage.getItem('favourites')),
+  //    favCollection = new FavouritesCollection(favourites);
 
   // @todo: fix this, should be in the collection.
   // Backbone.offline?
+  
+  /*
   if( !favourites ) {
     SC.initialize({
       client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
@@ -40,8 +42,8 @@ define([
   else {
     favCollection.reset(favourites);
   }
+  */
 
-  // Get some data for the user.
   var userModel = new User(),
       userView = new UserView({
         model: userModel,
@@ -59,15 +61,21 @@ define([
         'theRest':        'The Rest (2+ years)',
       };
 
-  _.keys(periodMap).forEach(function(period) {
-    var slice = favCollection.getRange(period, 'Desc'),
-        favouritesView = new FavouritesSectionView({
-          period: periodMap[period],
-          count: slice.length,
-          total: favCollection.length,
-          favouritesListView: new FavouritesListView({
-            collection: slice
-          })
-        });
+  // kick things off
+  $.when( userModel.fetch() ).done(function() {
+    console.log('All done!');
+    
+    $('.overlay').removeClass('active');
+    _.keys(periodMap).forEach(function(period) {
+      var slice = userModel.get('favourites').getRange(period, 'Desc'),
+          favouritesView = new FavouritesSectionView({
+            period: periodMap[period],
+            count: slice.length,
+            total: userModel.get('favourites').length,
+            favouritesListView: new FavouritesListView({
+              collection: slice
+            })
+          });
+    });
   });
 });

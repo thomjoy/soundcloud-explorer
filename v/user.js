@@ -24,6 +24,7 @@ define([
         username: this.model.get('username') || '',
         favouritesCount: this.model.get('public_favorites_count') || 0
       });
+      
       this.$el
         .html(_.template(this.template, templateData))
         .appendTo('#user-sidebar');
