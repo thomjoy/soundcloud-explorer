@@ -13,10 +13,6 @@ define([
 
     id: function() { return this.options.period + '-container'; },
 
-    events: {
-
-    },
-
     initialize: function() {
       _.extend(this, this.options);
       this.render();
@@ -28,6 +24,8 @@ define([
         else if( c === 1 ) return '1 track';
         else return c + ' tracks';
       })(this.count);
+
+
 
       this.$el.html(_.template(this.template, {
         period: this.period,
