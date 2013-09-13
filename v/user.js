@@ -28,7 +28,7 @@ define([
       });
 
       this.$el
-        .html(_.template(this.template, templateData))
+        .html(_.template(this.template, this.model.toJSON()))
         .prependTo('body');
     }
   });
