@@ -88,21 +88,32 @@ h1 {
   padding: 10px;
 }
 
-.favourites-period { list-style-type: none; padding: 0; margin: 0; margin-top: 10px; margin-bottom: 40px; overflow: hidden; }
-.favourites-period li { 
-  overflow: hidden; 
-  float: left; 
-  /*padding: 4px;
-  margin: 4px;*/
-  border: 1px solid transparent;
-}
-.favourites-period li { opacity: 1; }
-.favourites-period li.inactive { opacity: 0.4; }
+
 
 .period-title { margin: 0; clear: both; background: #333; padding: 2px; padding-left: 4px; padding-right: 4px; color: #fff; display: inline-block;}
-.number-of-tracks { text-transform: uppercase; margin: 0; font-weight: normal; color: #fff; background-color: #FF3500; padding: 2px; padding-left: 4px; width: 30%; }
+.number-of-tracks { 
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: bold;
+  color: #fff;
+  background-color: #FF3500;
+  padding: 2px;
+  padding-left: 4px;
+  width: 30%;
+  font-size: 12px;
+}
 
-.fav { padding-top: 10px; padding-bottom: 10px; width: 25%; overflow: hidden; }
+.favourites-period { list-style-type: none; padding: 0; margin: 0; margin-top: 10px; margin-bottom: 40px; overflow: hidden; }
+.fav { 
+  overflow: hidden; 
+  float: left;
+  width: 30%;
+  margin-right: 3%;
+  overflow: hidden;
+  margin-bottom: 1.5%;
+}
+.fav::nth-child(4n + 4) { margin-right: 0; }
+
 .fav .img-container { 
   position: relative;
   float: left;
@@ -119,25 +130,18 @@ h1 {
 .fav .img-container img.bw { -webkit-filter: grayscale(1); }
 .fav .img-container img:hover { cursor: pointer; }
 
-.fav .img-container .duration { display: none; }
-.fav .img-container .duration.show {
-  z-index: 10;
-  display: block;
-  position: absolute;
-  bottom: 2px;
-  left: 0;
-  background-color: #333;
-  color: #fff;
-  padding: 2px;
-  padding-bottom: 0px;
-  width: 88px;
-  height: 24px;
-  opacity: 0.9;
-  text-align: center;
+.fav h3 { 
+  font-size: 12px;
+  margin: 0;
+  margin-bottom: 4px;
+  text-overflow: ellipsis;
+  line-height: 1.3em;
 }
 
-.fav h3 { font-size: 12px; margin: 0; margin-bottom: 4px;}
-.fav h3 a { color: #eee; text-decoration: none; text-shadow: 0 1px 1px #000; }
+.fav h3 a { color: #eee; text-decoration: none; text-shadow: 0 1px 1px #222; }
 .fav div { margin: 0; font-size: 11px; color: #ccc; }
+
 .fav .tag { font-size: 11px; padding: 1px; padding-left: 2px; padding-right: 2px; background-color: #777; color: #fff; margin-right: 4px; }
-.fav .genre { margin-top: 4px; color: #999; }
+.fav .date { text-shadow: 0 1px 1px #222; }
+.fav .duration { color: #ccc; text-shadow: 0 1px 1px #222; }
+.fav .genre { background-color: #FF3500; padding: 1px 3px; color: #fff; display: inline-block; }
