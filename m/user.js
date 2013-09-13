@@ -1,11 +1,13 @@
 define([
   'soundcloud',
   'backbone',
-  'c/favourites'
+  'c/favourites',
+  'constants'
 ], function(
   SC,
   Backbone,
-  FavouritesCollection
+  FavouritesCollection,
+  c
 ){
 
   return Backbone.Model.extend({
@@ -27,11 +29,7 @@ define([
           _this = this,
           favourites = [];
 
-      SC.initialize({
-        client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
-        redirect_uri: 'http://localhost:9999/callback.html'
-      });
-
+      SC.initialize(c('clientAuth'));
       SC.connect(function() {
         SC.get('/me', function(user) {
           _this.set(user);
@@ -46,9 +44,7 @@ define([
                 goGet = function(pageSize, offset, dfd) {
                   SC.get(url, { limit: pageSize, offset: offset }, function(resp) {
                     favourites = favourites.concat(resp);
-                    console.log(favourites.length + ' favourites');
                     dfd.resolve();
-
                     // returning from the fn fixed the $.when block
                     return;
                   });
@@ -67,18 +63,14 @@ define([
           };
 
           var promises = getFaves(_this.get('id'), _this.get('public_favorites_count'));
-          $.when.apply($, promises)
-            .done(function() {
-              window.localStorage.setItem('favourites', JSON.stringify(favourites));
-              _this.set('favourites', new FavouritesCollection());
-              _this.get('favourites').reset(favourites);
-              console.log(_this.get('favourites').length + ' favourites fetched');
+          $.when.apply($, promises).done(function() {
+            window.localStorage.setItem('favourites', JSON.stringify(favourites));
+            _this.set('favourites', new FavouritesCollection());
+            _this.get('favourites').reset(favourites);
+            console.log(_this.get('favourites').length + ' favourites fetched');
 
-              def.resolve();
-            })
-            .fail(function(e) {
-              console.log(e);
-            });
+            def.resolve();
+          });
         });
       });
 

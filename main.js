@@ -21,17 +21,15 @@ define([
 
   var userModel = new User(),
       periodMap = c('periodMap');
-      
+
   console.log(c('clientAuth'));
 
   $('body').append('<div class="loading">Loading...</div>');
 
   // kick things off
   $.when( userModel.fetch() ).done(function() {
-    console.log('All done!');
-
     $('.loading').hide();
-    $('.overlay').removeClass('active');
+    $('.overlay').removeClass('active').hide();
 
     var userView = new UserView({
       model: userModel,
