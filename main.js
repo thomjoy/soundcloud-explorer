@@ -22,9 +22,7 @@ define([
   var userModel = new User(),
       periodMap = c('periodMap');
 
-  console.log(c('clientAuth'));
-
-  $('body').append('<div class="loading">Loading...</div>');
+  $('.loading').html('<div><img src="img/cloud.png" /><span>Loading...</span></div>');
 
   // kick things off
   $.when( userModel.fetch() ).done(function() {

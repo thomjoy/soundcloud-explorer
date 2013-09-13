@@ -7,6 +7,8 @@ define([
 ) {
 
   return Backbone.View.extend({
+
+    id: 'sidebar',
     className: 'sc-user',
 
     template: templates.user,
@@ -24,10 +26,10 @@ define([
         username: this.model.get('username') || '',
         favouritesCount: this.model.get('public_favorites_count') || 0
       });
-      
+
       this.$el
         .html(_.template(this.template, templateData))
-        .appendTo('#user-sidebar');
+        .prependTo('body');
     }
   });
 });

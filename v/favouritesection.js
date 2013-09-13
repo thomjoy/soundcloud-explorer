@@ -11,7 +11,7 @@ define([
 
     template: templates.favourites,
 
-    id: function() { return this.options.period + '-container'; },
+    id: function() { return this.options.period.replace(' ', '-').toLowerCase() + '-container'; },
 
     initialize: function() {
       _.extend(this, this.options);
@@ -25,15 +25,13 @@ define([
         else return c + ' tracks';
       })(this.count);
 
-
-
       this.$el.html(_.template(this.template, {
         period: this.period,
         count: countString
       }));
 
       this.$el.append(this.favouritesListView.$el);
-      this.$el.appendTo('#container');
+      this.$el.appendTo('#sc-main');
     },
   });
 });
