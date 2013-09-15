@@ -18,6 +18,7 @@ requirejs.config({
 
       underscore:                 'lib/underscore',
       backbone:                   'lib/backbone',
+      'backbone.offline':          'lib/backbone_offline',
       jquery:                     'lib/jquery-1.10.2',
       moment:                     'lib/moment',
       'moment-range':             'lib/moment-range',
@@ -31,6 +32,10 @@ requirejs.config({
     backbone: {
       deps: ['underscore', 'jquery'],
       exports: 'Backbone'
+    },
+    'backbone.offline': {
+      deps: ['underscore', 'backbone'],
+      exports: 'Offline'
     },
     bootstrap: {
       deps: ['jquery'],
@@ -56,4 +61,4 @@ requirejs.config({
 });
 
 // load the app.
-require(['soundcloud', 'backbone', 'main']);
+require(['soundcloud', 'backbone', 'backbone.offline', 'main']);
