@@ -6,7 +6,8 @@ define([
   'm/user',
   'v/user',
   'constants',
-  'soundcloud'
+  'soundcloud',
+  'd3'
 ], function(
   FavouritesCollection,
   FavouritesListView,
@@ -15,7 +16,8 @@ define([
   User,
   UserView,
   c,
-  SC
+  SC,
+  d3
 ){
   'use strict';
 

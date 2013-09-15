@@ -23,7 +23,8 @@ requirejs.config({
       moment:                     'lib/moment',
       'moment-range':             'lib/moment-range',
       bootstrap: ['//netdna.bootstrapcdn.com/twitter-bootstrap/3.0.0/js/bootstrap.min', 'libs/bootstrap-min'],
-      soundcloud: 'http://connect.soundcloud.com/sdk'
+      soundcloud: 'http://connect.soundcloud.com/sdk',
+      d3: 'lib/d3/d3'
   },
   shim: {
     underscore: {
@@ -47,6 +48,9 @@ requirejs.config({
     'moment-range': {
       deps: ['moment'],
       exports: 'moment'
+    },
+    d3: {
+      exports: 'd3'
     },
     soundcloud: {
       exports: 'SC',
