@@ -60,7 +60,6 @@ define([
     },
 
     mouseWheel: _.debounce(function(evt) {
-      console.log(evt);
       $('li img').removeClass('bw');
     }, 250, true)
   });
