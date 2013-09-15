@@ -7,7 +7,7 @@ define([
 ) {
   return Backbone.View.extend({
 
-    className: 'favourite-section',
+    className: 'favourites-section',
 
     template: templates.favourites,
 
