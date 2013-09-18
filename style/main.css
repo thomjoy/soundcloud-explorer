@@ -17,6 +17,7 @@ select { margin-top: 10px; margin-bottom: 10px; }
   background-image: radial-gradient(rgba(0,0,0,0) 10%,rgba(0,0,0,0.6));
   background-color: rgba(61,67,76,0.7);
   opacity: 0;
+  
   -webkit-transition: 250ms opacity linear;
   -moz-transition: 250ms opacity linear;
   -ms-transition: 250ms opacity linear;
