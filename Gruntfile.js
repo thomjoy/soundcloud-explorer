@@ -17,9 +17,10 @@ module.exports = function(grunt) {
     requirejs: {
       // global config
       options: {
-        baseUrl: "src/js",
-        mainConfigFile: "src/js/soundcloud-explorer/app.js",
-        name: "soundcloud-explorer/main", // main.js
+        baseUrl:        'src/js',
+        appDir:         'js/soundcloud-explorer',
+        mainConfigFile: 'src/js/soundcloud-explorer/app.js',
+        name:           'soundcloud-explorer/main', // main.js
       },
       production: {
         // overwrites the default config above

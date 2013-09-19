@@ -1,5 +1,4 @@
 requirejs.config({
-  
   baseUrl:      'js/soundcloud-explorer',
   waitSeconds:  30,
   urlBust:      '?bust=' + new Date().getTime(),
