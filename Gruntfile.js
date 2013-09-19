@@ -30,7 +30,7 @@ module.exports = function(grunt) {
         // overwrites the default config above
         options: {
           out: "build-dev.js",
-          optimize: none // no minification
+          optimize: "none" // no minification
         }
       }
     }
@@ -39,9 +39,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
-  grunt.registerTask('requirejs', ['requirejs']);
-
   // Default task(s).
-  grunt.registerTask('default', ['uglify']);
-
+  grunt.registerTask('default', ['requirejs']);
+  grunt.registerTask('uglify', ['uglify']);
 };
