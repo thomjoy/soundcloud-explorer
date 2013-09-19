@@ -1,32 +1,35 @@
 requirejs.config({
-  baseUrl: 'js',
-  waitSeconds: 30,
-  urlBust: '?bust=' + new Date().getTime(),
+  
+  baseUrl:      'js',
+  baseUrl:   'js/soundcloud-explorer',
+  waitSeconds:  30,
+  urlBust:      '?bust=' + new Date().getTime(),
+  
   paths: {
       // plugins
-      //create alias to plugins (not needed if plugins are on the baseUrl)
-      async: 'lib/requirejs-plugins/src/async',
-      font: 'lib/requirejs-plugins/src/font',
-      goog: 'lib/requirejs-plugins/src/goog',
-      image: 'lib/requirejs-plugins/src/image',
-      json: 'lib/requirejs-plugins/src/json',
-      noext: 'lib/requirejs-plugins/src/noext',
-      mdown: 'lib/requirejs-plugins/src/mdown',
-      propertyParser : 'lib/requirejs-plugins/src/propertyParser',
-      markdownConverter : 'lib/requirejs-plugins/src/Markdown.Converter',
-      text: 'lib/requirejs-plugins/src/text',
-      domReady: 'lib/requirejs-plugins/src/domReady(callback)',
+      async:                      '../lib/requirejs-plugins/src/async',
+      font:                       '../lib/requirejs-plugins/src/font',
+      goog:                       '../lib/requirejs-plugins/src/goog',
+      image:                      '../lib/requirejs-plugins/src/image',
+      json:                       '../lib/requirejs-plugins/src/json',
+      noext:                      '../lib/requirejs-plugins/src/noext',
+      mdown:                      '../lib/requirejs-plugins/src/mdown',
+      propertyParser:             '../lib/requirejs-plugins/src/propertyParser',
+      markdownConverter:          '../lib/requirejs-plugins/src/Markdown.Converter',
+      text:                       '../lib/requirejs-plugins/src/text',
+      domReady:                   '../lib/requirejs-plugins/src/domReady(callback)',
 
-      underscore:                 'lib/underscore',
-      backbone:                   'lib/backbone',
-      'backbone.offline':          'lib/backbone_offline',
-      jquery:                     'lib/jquery-1.10.2',
-      moment:                     'lib/moment',
-      'moment-range':             'lib/moment-range',
-      bootstrap: ['//netdna.bootstrapcdn.com/twitter-bootstrap/3.0.0/js/bootstrap.min', 'libs/bootstrap-min'],
-      soundcloud: 'http://connect.soundcloud.com/sdk',
-      d3: 'lib/d3/d3'
+      underscore:                 '../lib/underscore',
+      backbone:                   '../lib/backbone',
+      'backbone.offline':         '../lib/backbone_offline',
+      jquery:                     '../lib/jquery-1.10.2',
+      moment:                     '../lib/moment',
+      'moment-range':             '../lib/moment-range',
+      bootstrap:                  ['//netdna.bootstrapcdn.com/twitter-bootstrap/3.0.0/js/bootstrap.min', '../lib/bootstrap-min'],
+      soundcloud:                 'http://connect.soundcloud.com/sdk',
+      d3:                         '../lib/d3/d3'
   },
+
   shim: {
     underscore: {
       exports: '_'
