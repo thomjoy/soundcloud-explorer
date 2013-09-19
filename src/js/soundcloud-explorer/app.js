@@ -1,10 +1,10 @@
 requirejs.config({
   
-  baseUrl:      'js',
-  baseUrl:   'js/soundcloud-explorer',
+  baseUrl:      'js/soundcloud-explorer',
   waitSeconds:  30,
   urlBust:      '?bust=' + new Date().getTime(),
-  
+  deps: ['main'],
+
   paths: {
       // plugins
       async:                      '../lib/requirejs-plugins/src/async',
@@ -25,7 +25,6 @@ requirejs.config({
       jquery:                     '../lib/jquery-1.10.2',
       moment:                     '../lib/moment',
       'moment-range':             '../lib/moment-range',
-      bootstrap:                  ['//netdna.bootstrapcdn.com/twitter-bootstrap/3.0.0/js/bootstrap.min', '../lib/bootstrap-min'],
       soundcloud:                 'http://connect.soundcloud.com/sdk',
       d3:                         '../lib/d3/d3'
   },
@@ -41,10 +40,6 @@ requirejs.config({
     'backbone.offline': {
       deps: ['underscore', 'backbone'],
       exports: 'Offline'
-    },
-    bootstrap: {
-      deps: ['jquery'],
-      exports: '$'
     },
     moment: {
       exports: 'moment'
@@ -69,4 +64,4 @@ requirejs.config({
 });
 
 // load the app.
-require(['soundcloud', 'backbone', 'backbone.offline', 'main']);
+//require(['soundcloud', 'backbone', 'backbone.offline', 'main']);
