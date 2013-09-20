@@ -16,20 +16,11 @@ define([
       favourites: null
     },
 
-    url: function() {
-      return '/me';
-    },
-
-    initialize: function() {
-      _.extend(this, this.options);
-    },
-
     fetch: function() {
       var def = new $.Deferred(),
           _this = this,
           favourites = [];
 
-      SC.initialize(c('clientAuth'));
       SC.connect(function() {
         SC.get('/me', function(user) {
           _this.set(user);

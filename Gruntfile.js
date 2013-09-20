@@ -32,7 +32,8 @@ module.exports = function(grunt) {
           name: "../<%= pkg.name %>/main",
           optimize: 'uglify2',
           normalizeDirDefines: 'all',
-          logLevel: 0
+          logLevel: 0,
+          exclude: ['soundcloud']
         }
       }
     },

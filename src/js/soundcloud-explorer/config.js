@@ -54,7 +54,7 @@ requirejs.config({
     },
 
     // this doesn't work after optimization
-    soundcloud: {
+    /*soundcloud: {
       exports: 'SC',
       init: function() {
         SC.initialize({
@@ -62,24 +62,32 @@ requirejs.config({
           redirect_uri: 'http://localhost:9999/callback.html'
         });
       }
-    }
+    }*/
   }
 });
 
-// load SC
-/*define(function(require) {
-  var SC = require(['soundcloud']);
-});*/
+/*
+define('soundcloud',
+  ['async!//connect.soundcloud.com/sdk'],
+  function(){
+      SC.initialize({
+        client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
+        redirect_uri: 'http://localhost:9999/callback.html'
+      });
+      return SC;
+  });
+*/
 
 // Define moment and moment-range in one go
 require({ paths: {
     'moment': '../lib/moment',
     'moment-range': '../lib/moment-range',
-  }
-}, ['moment', 'moment-range'], function(m, m1){
+  }}, ['moment', 'moment-range'], function(m, m1){
 });
 
 // start the app
-require(['app/main'], function() {
-  console.log('Application loaded');
+require(['soundcloud'], function() {
+  require(['app/main'], function() {
+    console.log('Application loaded');
+  });
 });
