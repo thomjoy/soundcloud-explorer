@@ -26,17 +26,13 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          baseUrl: "src/js/<%= pkg.name %>",
+          baseUrl: "src/js/lib",
           mainConfigFile: "src/js/<%= pkg.name %>/config.js",
           out: "build/js/main.js",
-          name: "main",
+          name: "../<%= pkg.name %>/main",
           optimize: 'uglify2',
           normalizeDirDefines: 'all',
-          logLevel: 2,
-
-          paths: {
-            soundcloud: '//connect.soundcloud.com/sdk'
-          }
+          logLevel: 0
         }
       }
     },
