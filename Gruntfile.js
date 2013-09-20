@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     // clean everything in build, including subdirs
     clean: {
       build: ['build/*'],
-      generated: ['build/generated'],
+      srcjs: ['build/js/lib/**', 'build/js/soundcloud-explorer/**'],
     },
     
     copy: {
@@ -15,7 +15,9 @@ module.exports = function(grunt) {
         files: [
           {expand: true, cwd: 'src/img', src: ['**'], dest: 'build/img/'},
           {expand: true, cwd: 'src/style', src: ['**'], dest: 'build/style/'},
-          {expand: true, cwd: 'src/js', src: ['**'], build: 'build/js/'}
+          {expand: true, cwd: 'src/js', src: ['**'], dest: 'build/js/'},
+          {src: 'src/index.html', dest: 'build/index.html'},
+          {src: 'src/callback.html', dest: 'build/callback.html'}
         ]
       }
     },
@@ -32,6 +34,10 @@ module.exports = function(grunt) {
           logLevel: 2
         }
       }
+    },
+
+    htmlref: {
+      
     }
   });
 
@@ -39,5 +45,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
-  grunt.registerTask('build', ['clean:build', 'copy:build', 'requirejs']);
+  grunt.registerTask('build', ['clean:build', 'copy:build', 'requirejs', 'clean:srcjs']);
 };
