@@ -4,10 +4,12 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    clean: {
-      
-    },
+    clean: ['build']
     
+    copy: {
+
+    },
+
     requirejs: {
       // global config
       options: {
@@ -16,17 +18,17 @@ module.exports = function(grunt) {
         mainConfigFile: 'src/js/soundcloud-explorer/config.js',
         name:           'soundcloud-explorer/main', // main.js
       },
-      production: {
+      build: {
         // overwrites the default config above
         options: {
-          out: "build/build-production.js",
+          dir: "build",
           optimize: "uglify2"
         }
       },
       dev: {
         // overwrites the default config above
         options: {
-          out: "src/build-dev.js",
+          dir: "build",
           optimize: "none" // no minification
         }
       }
@@ -37,6 +39,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
-  // Default task(s).
-  grunt.registerTask('default', ['requirejs']);
+  grunt.registerTask('build', ['clean']);
 };
