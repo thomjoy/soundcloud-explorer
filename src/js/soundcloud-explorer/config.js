@@ -1,31 +1,40 @@
 requirejs.config({
-  baseUrl:      'js/soundcloud-explorer',
+  baseUrl:      'js/lib',
   waitSeconds:  30,
   urlBust:      '?bust=' + new Date().getTime(),
-  deps: ['main'],
 
   paths: {
-      // plugins
-      async:                      '../lib/requirejs-plugins/src/async',
-      font:                       '../lib/requirejs-plugins/src/font',
-      goog:                       '../lib/requirejs-plugins/src/goog',
-      image:                      '../lib/requirejs-plugins/src/image',
-      json:                       '../lib/requirejs-plugins/src/json',
-      noext:                      '../lib/requirejs-plugins/src/noext',
-      mdown:                      '../lib/requirejs-plugins/src/mdown',
-      propertyParser:             '../lib/requirejs-plugins/src/propertyParser',
-      markdownConverter:          '../lib/requirejs-plugins/src/Markdown.Converter',
-      text:                       '../lib/requirejs-plugins/src/text',
-      domReady:                   '../lib/requirejs-plugins/src/domReady(callback)',
 
-      underscore:                 '../lib/underscore',
-      backbone:                   '../lib/backbone',
-      'backbone.offline':         '../lib/backbone_offline',
-      jquery:                     '../lib/jquery-1.10.2',
-      moment:                     '../lib/moment',
-      'moment-range':             '../lib/moment-range',
-      soundcloud:                 'http://connect.soundcloud.com/sdk',
-      d3:                         '../lib/d3/d3'
+    // application level stuff
+    app: '../soundcloud-explorer',
+    m: '../soundcloud-explorer/m',
+    v: '../soundcloud-explorer/v',
+    c: '../soundcloud-explorer/c',
+    t: '../soundcloud-explorer/t',
+    constants: '../soundcloud-explorer/constants',
+    dateranges: '../soundcloud-explorer/dateranges',
+    templates: '../soundcloud-explorer/templates',
+
+    // plugins
+    async:                      'requirejs-plugins/src/async',
+    font:                       'requirejs-plugins/src/font',
+    goog:                       'requirejs-plugins/src/goog',
+    image:                      'requirejs-plugins/src/image',
+    json:                       'requirejs-plugins/src/json',
+    noext:                      'requirejs-plugins/src/noext',
+    mdown:                      'requirejs-plugins/src/mdown',
+    propertyParser:             'requirejs-plugins/src/propertyParser',
+    markdownConverter:          'requirejs-plugins/src/Markdown.Converter',
+    text:                       'requirejs-plugins/src/text',
+    domReady:                   'requirejs-plugins/src/domReady(callback)',
+
+    underscore:                 'underscore',
+    backbone:                   'backbone',
+    'backbone.offline':         'backbone_offline',
+    jquery:                     'jquery-1.10.2',
+    d3:                         'd3/d3',
+
+    soundcloud:                 '//connect.soundcloud.com/sdk',
   },
 
   shim: {
@@ -40,16 +49,11 @@ requirejs.config({
       deps: ['underscore', 'backbone'],
       exports: 'Offline'
     },
-    moment: {
-      exports: 'moment'
-    },
-    'moment-range': {
-      deps: ['moment'],
-      exports: 'moment'
-    },
     d3: {
       exports: 'd3'
     },
+
+    // this doesn't work after optimization
     soundcloud: {
       exports: 'SC',
       init: function() {
@@ -62,5 +66,20 @@ requirejs.config({
   }
 });
 
-// load the app.
-//require(['soundcloud', 'backbone', 'backbone.offline', 'main']);
+// load SC
+/*define(function(require) {
+  var SC = require(['soundcloud']);
+});*/
+
+// Define moment and moment-range in one go
+require({ paths: {
+    'moment': '../lib/moment',
+    'moment-range': '../lib/moment-range',
+  }
+}, ['moment', 'moment-range'], function(m, m1){
+});
+
+// start the app
+require(['app/main'], function() {
+  console.log('Application loaded');
+});

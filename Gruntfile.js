@@ -17,7 +17,8 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'src/style', src: ['**'], dest: 'build/style/'},
           {expand: true, cwd: 'src/js', src: ['**'], dest: 'build/js/'},
           {src: 'src/index.html', dest: 'build/index.html'},
-          {src: 'src/callback.html', dest: 'build/callback.html'}
+          {src: 'src/callback.html', dest: 'build/callback.html'},
+          {src: 'src/require.js', dest: 'build/require.js'}
         ]
       }
     },
@@ -29,9 +30,13 @@ module.exports = function(grunt) {
           mainConfigFile: "src/js/<%= pkg.name %>/config.js",
           out: "build/js/main.js",
           name: "main",
-          optimize: 'uglify',
+          optimize: 'uglify2',
           normalizeDirDefines: 'all',
-          logLevel: 2
+          logLevel: 2,
+
+          paths: {
+            soundcloud: '//connect.soundcloud.com/sdk'
+          }
         }
       }
     },

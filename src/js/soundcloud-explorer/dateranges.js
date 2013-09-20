@@ -1,4 +1,8 @@
-define(['moment', 'moment-range'], function(moment) {
+define([
+  'moment'
+], function(
+  moment
+) {
   return {
     today: function(d) {
       var start = moment(moment().startOf('day')),
