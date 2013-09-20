@@ -13,34 +13,23 @@ module.exports = function(grunt) {
     copy: {
       build: {
         files: [
-          //{src: ['src/img'], dest: 'build/'},
-          //{src: ['src/style'], dest: 'build/'},
-          {expand: true, cwd: 'src/img', src: ['**'], dest: 'build/img'},
-          {expand: true, cwd: 'src/style', src: ['**'], dest: 'build/style'}
+          {expand: true, cwd: 'src/img', src: ['**'], dest: 'build/img/'},
+          {expand: true, cwd: 'src/style', src: ['**'], dest: 'build/style/'},
+          {expand: true, cwd: 'src/js', src: ['**'], build: 'build/js/'}
         ]
       }
     },
 
     requirejs: {
-      // global config
-      options: {
-        baseUrl:        'src/js',
-        //appDir:         'js/soundcloud-explorer',
-        mainConfigFile: 'src/js/soundcloud-explorer/config.js',
-        name:           'soundcloud-explorer/main', // main.js
-      },
-      build: {
-        // overwrites the default config above
+      compile: {
         options: {
-          dir: "build",
-          optimize: "uglify2"
-        }
-      },
-      dev: {
-        // overwrites the default config above
-        options: {
-          dir: "build",
-          optimize: "none" // no minification
+          baseUrl: "src/js/soundcloud-explorer",
+          mainConfigFile: "src/js/soundcloud-explorer/config.js",
+          out: "build/js/main.js",
+          name: "main",
+          optimize: 'uglify',
+          normalizeDirDefines: 'all',
+          logLevel: 2
         }
       }
     }
@@ -50,5 +39,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
-  grunt.registerTask('build', ['clean:build', 'copy:build']);
+  grunt.registerTask('build', ['clean:build', 'copy:build', 'requirejs']);
 };
