@@ -4,10 +4,21 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    clean: ['build/*'],
+    // clean everything in build, including subdirs
+    clean: {
+      build: ['build/*'],
+      generated: ['build/generated'],
+    },
     
     copy: {
-
+      build: {
+        files: [
+          //{src: ['src/img'], dest: 'build/'},
+          //{src: ['src/style'], dest: 'build/'},
+          {expand: true, cwd: 'src/img', src: ['**'], dest: 'build/img'},
+          {expand: true, cwd: 'src/style', src: ['**'], dest: 'build/style'}
+        ]
+      }
     },
 
     requirejs: {
@@ -39,5 +50,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
-  grunt.registerTask('build', ['clean']);
+  grunt.registerTask('build', ['clean:build', 'copy:build']);
 };
