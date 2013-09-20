@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     // clean everything in build, including subdirs
     clean: {
       build: ['build/*'],
-      srcjs: ['build/js/lib/**', 'build/js/soundcloud-explorer/**'],
+      srcjs: ['build/js/lib/**', 'build/js/<%= pkg.name %>/**'],
     },
     
     copy: {
@@ -25,8 +25,8 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          baseUrl: "src/js/soundcloud-explorer",
-          mainConfigFile: "src/js/soundcloud-explorer/config.js",
+          baseUrl: "src/js/<%= pkg.name %>",
+          mainConfigFile: "src/js/<%= pkg.name %>/config.js",
           out: "build/js/main.js",
           name: "main",
           optimize: 'uglify',
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
     },
 
     htmlref: {
-      
+
     }
   });
 
