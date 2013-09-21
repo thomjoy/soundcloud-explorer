@@ -1,7 +1,7 @@
 define(['backbone', 'templates'], function(Backbone, templates) {
   return Backbone.View.extend({
     
-    className: 'dashboard',
+    className: 'dashboard container',
 
     template: templates.dashboard,
 

@@ -1,6 +1,11 @@
 * { font-family: 'Helvetica Neue', Helvetica, arial, sans-serif; }
-body { background: url('../img/tweed.png') 0 0 repeat; margin: 0; padding: 0; }
-select { margin-top: 10px; margin-bottom: 10px; }
+::selection { background-color: transparent; }
+
+body { 
+  background: url('../img/tweed.png') 0 0 repeat;
+  margin: 0;
+  padding: 0;
+}
 
 .overlay {
   position: absolute;
@@ -24,7 +29,9 @@ select { margin-top: 10px; margin-bottom: 10px; }
   -o-transition: 250ms opacity linear;
   transition: 250ms opacity linear;
 }
+
 .overlay.active { z-index: 9999; opacity: 1; }
+
 .loading {
   z-index: 99999;
   width: 100%;
@@ -37,54 +44,67 @@ select { margin-top: 10px; margin-bottom: 10px; }
 .loading div span { text-transform: uppercase; display: inline-block; text-align: center; color: #fff; font-size: 11px; text-shadow: 0px 1px 1px #333; }
 
 header {
-  background-color: #272727;
   height: 27px;
   width: 100%;
   padding-top: 4px;
-  padding-bottom: 4px; 
+  padding-bottom: 4px;
+
+  .navbar-header { 
+    overflow: hidden;
+
+    h1 { 
+      padding-left: 52px;
+      margin: 0;
+      margin-left: 10px;
+      margin-top: 5px;
+      background: url('../img/cloud.png') 0 0 no-repeat;
+      width: 48px;
+      height: 27px; 
+      float: left;
+    }
+
+    div { 
+      float: left; 
+      font-size: 18px; 
+      color: #fff; 
+      margin-top: 5px;
+      margin-right: 10px;
+      text-shadow: 0px 1px #000;
+    }
+  }
+
+  .form-holder { 
+    overflow: hidden; 
+    height: 27px !important; 
+    display: inline-block; 
+    width: 300px; 
+    float: left;
+    margin-left: 20px;
+    margin-top: 2px;
+
+    label { 
+      font-size: 12px;
+      color: #eee;
+      text-shadow: 0px 1px #000;
+
+      span { 
+        display: inline-block;
+        margin-left: 2px;
+        font-size: 18px;
+        color: #eee;
+        text-shadow: 0px 1px #000;
+      }
+    }
+
+    select { 
+      width: auto;
+      padding: 2px 4px;
+      margin-left: 5px;
+    }
+  }
 }
 
-header .navbar-header { overflow: hidden; }
-header .navbar-header h1 { 
-  padding-left: 52px;
-  margin: 0;
-  margin-left: 5px;
-  margin-top: 5px;
-  background: url('../img/cloud.png') 0 0 no-repeat;
-  width: 48px;
-  height: 27px; 
-  float: left;
-}
-header .navbar-header div { 
-  float: left; 
-  font-size: 18px; 
-  color: #fff; 
-  margin-top: 5px;
-  margin-right: 10px;
-  text-shadow: 0px 1px #000;
-}
-
-header .form-holder { 
-  overflow: hidden; 
-  height: 27px !important; 
-  display: inline-block; 
-  width: 300px; 
-  float: left;
-  margin-left: 20px;
-  margin-top: 2px;
-}
-header label { font-size: 12px; color: #eee; text-shadow: 0px 1px #000; }
-header label span { display: inline-block; margin-left: 2px; font-size: 18px; color: #eee; text-shadow: 0px 1px #000; }
-header select { width: 200px; padding: 2px; margin-left: 5px; }
-
-#sc-main {
-  width: 96%;
-  margin-left: 2%;
-  margin-right: 2%;
-  position: absolute;
-  left: 12%;
-  top: 32px;
-}
+#sc-main { }
 
 /* 
  *  Dashboard

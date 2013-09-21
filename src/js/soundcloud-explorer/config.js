@@ -75,7 +75,6 @@ requirejs.config({
   return window.SC;
 });*/
 
-
 // Define moment and moment-range in one go
 require({ paths: {
     'moment': '../lib/moment',
