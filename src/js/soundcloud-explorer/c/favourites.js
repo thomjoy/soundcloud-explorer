@@ -24,11 +24,6 @@ define([
           def = new $.Deferred(),
           userId = this.get('userId');
 
-      SC.initialize({
-        client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
-        redirect_uri: 'http://localhost:9999/callback.html'
-      });
-
       SC.connect(function() {
         SC.get('/users/' + userId + '/favorites.json?limit=250', function(resp) {
           window.localStorage.setItem('favourites', JSON.stringify(resp));
@@ -41,8 +36,6 @@ define([
     },
 
     getRange: function(filter, sortDir) {
-      console.log(filter);
-      console.log(DateRanges[filter]);
       var fn = DateRanges[filter],
           sortFn = sortDir ? this['sort' + sortDir] : this.sortAsc;
           set = _.filter(this.models, function(m) {
@@ -50,18 +43,6 @@ define([
             return fn(m.get('created_at'));
           }).sort(sortFn);
       return set;
-    },
-
-    today: function() {
-      return _.groupBy(this.models, function(m) {
-        return DateRanges.today(m.get('created_at'));
-      });
-    },
-
-    yesterday: function() {
-      return _.groupBy(this.models, function(m) {
-        return DateRanges.yesterday(m.get('created_at'));
-      });
     },
 
     sortAsc: function(a, b) {

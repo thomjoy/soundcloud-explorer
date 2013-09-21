@@ -9,13 +9,7 @@ require(["config"], function() {
       vent: _.extend({}, Backbone.Events)
     });
 
-    
-
-    // load the app
-    //app.vent.trigger('app:boot', function(){
-    //
-    //});
-
+    // initial page
     app.dashboard();
 
     // attach events
@@ -24,7 +18,7 @@ require(["config"], function() {
         period: data.period,
         user: data.user
       });
-      
+
       app.router.navigate('/likes/' + data.period, {trigger: true});
     });
   });
