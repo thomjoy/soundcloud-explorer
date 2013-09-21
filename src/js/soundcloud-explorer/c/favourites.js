@@ -41,6 +41,8 @@ define([
     },
 
     getRange: function(filter, sortDir) {
+      console.log(filter);
+      console.log(DateRanges[filter]);
       var fn = DateRanges[filter],
           sortFn = sortDir ? this['sort' + sortDir] : this.sortAsc;
           set = _.filter(this.models, function(m) {

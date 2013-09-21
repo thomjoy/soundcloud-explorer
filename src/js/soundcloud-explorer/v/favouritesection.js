@@ -31,6 +31,7 @@ define([
       }));
 
       this.$el.append(this.favouritesListView.$el);
+      $('#sc-main').empty();
       this.$el.appendTo('#sc-main');
     },
   });

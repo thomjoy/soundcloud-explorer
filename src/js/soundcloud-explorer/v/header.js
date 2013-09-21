@@ -24,14 +24,14 @@ define([
 
     render: function() {
       this.$el
-        .html(_.template(this.template, { links: this.links, userName: this.userName || '' }))
+        .html(_.template(this.template, { links: this.links, userName: this.user.get('username') || '' }))
         .prependTo('body');
     },
 
     handleMenuSelect: function(evt) {
       evt.preventDefault();
       var p = evt.currentTarget.value;
-      this.vent.trigger('like:periodChange', { period: p });
+      this.vent.trigger('like:periodChange', { period: p, user: this.user });
     }
   });
 });

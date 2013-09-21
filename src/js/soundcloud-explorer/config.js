@@ -23,16 +23,7 @@ requirejs.config({
 
     // plugins
     async:                      'requirejs-plugins/src/async',
-    font:                       'requirejs-plugins/src/font',
-    goog:                       'requirejs-plugins/src/goog',
-    image:                      'requirejs-plugins/src/image',
-    json:                       'requirejs-plugins/src/json',
-    noext:                      'requirejs-plugins/src/noext',
-    mdown:                      'requirejs-plugins/src/mdown',
-    propertyParser:             'requirejs-plugins/src/propertyParser',
-    markdownConverter:          'requirejs-plugins/src/Markdown.Converter',
     text:                       'requirejs-plugins/src/text',
-    domReady:                   'requirejs-plugins/src/domReady(callback)',
 
     'backbone.offline':         'backbone_offline',
     jquery:                     'jquery-1.10.2',
@@ -69,20 +60,9 @@ requirejs.config({
   }
 });
 
-// soundcloud
-/*define('soundcloud', ['async!//connect.soundcloud.com/sdk.js!callback'], function() {
-  console.log('Got SC');
-  return window.SC;
-});*/
-
 // Define moment and moment-range in one go
 require({ paths: {
     'moment': '../lib/moment',
     'moment-range': '../lib/moment-range',
   }}, ['moment', 'moment-range'], function(m, m1){
-});
-
-// start the app
-require(['app/main'], function() {
-  console.log('Application loaded');
 });

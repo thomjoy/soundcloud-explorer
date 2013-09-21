@@ -8,14 +8,15 @@ define([], function() {
       periodMap: {
         'today':          'Today',
         'yesterday':      'Yesterday',
-        'thisWeek':       'This Week',
-        'lastWeek':       'Last Week',
-        'thisMonth':      'This Month',
-        'lastMonth':      'Last Month',
-        'lastSixMonths':  'Last Six Months',
-        'thisYear':       'This Year',
-        'lastYear':       'Last Year',
-        'theRest':        'The Rest (2+ years)',
+        'thisweek':       'This Week',
+        'lastweek':       'Last Week',
+        'thismonth':      'This Month',
+        'lastmonth':      'Last Month',
+        'lastsixmonths':  'Last Six Months',
+        'thisyear':       'This Year',
+        'lastyear':       'Last Year',
+        'therest':        'The Rest (2+ years)',
+        'everything':     "Everything"
       }
     };
 

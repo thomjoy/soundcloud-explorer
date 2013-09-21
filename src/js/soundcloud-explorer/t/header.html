@@ -1,18 +1,19 @@
-<!--<div class="container">-->
-  <div class="navbar-header">
-    <h1></h1>
-    <div><%= userName %></div>
-  </div>
-  <div class="form-holder">
-    <label for="likes-period">Filter <span>&hearts;</span></label>
-    <select id="likes-period">
-      <% _.each(links, function(link) { %>
-      <option value="<%= link.value %>"><%= link.text %></option>
-      <% }); %> 
-    </select>
-  </div>
-<!--</div>-->
+<div class="navbar-header">
+  <h1></h1>
+  <div><%= userName %></div>
+</div>
+<div class="form-holder">
+  <label for="likes-period">Filter <span>&hearts;</span></label>
+  <select id="likes-period">
+    <% _.each(links, function(link) { %>
+    <option value="<%= link.value %>"><%= link.text %></option>
+    <% }); %> 
+  </select>
+</div>
 
-
-
-
+<!-- 
+<ul class="menu">
+  <li><a href="">Trends</a></li>
+  <li><a href="">Timeline</a></li>
+</ul>
+-->
