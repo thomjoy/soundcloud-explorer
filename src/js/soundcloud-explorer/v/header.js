@@ -31,7 +31,9 @@ define([
     handleMenuSelect: function(evt) {
       evt.preventDefault();
       var p = evt.currentTarget.value;
-      this.vent.trigger('like:periodChange', { period: p, user: this.user });
+      if( p ) {
+        this.vent.trigger('like:periodChange', { period: p, user: this.user });
+      }
     }
   });
 });

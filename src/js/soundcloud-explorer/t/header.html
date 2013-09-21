@@ -5,6 +5,7 @@
 <div class="form-holder">
   <label for="likes-period">Filter <span>&hearts;</span></label>
   <select id="likes-period">
+    <option>-- Filter by date --</option>
     <% _.each(links, function(link) { %>
     <option value="<%= link.value %>"><%= link.text %></option>
     <% }); %> 
