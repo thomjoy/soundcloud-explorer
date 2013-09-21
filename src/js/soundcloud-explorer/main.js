@@ -1,28 +1,35 @@
 define([
+  'd3',
+  'constants',
+  'router',
   'c/favourites',
   'v/favouritelist',
   'v/favouritesection',
   'dateranges',
   'm/user',
   'v/user',
-  'constants',
-  'soundcloud',
-  'd3'
+  'v/header'
 ], function(
+  d3,
+  c,
+  Router,
   FavouritesCollection,
   FavouritesListView,
   FavouritesSectionView,
   DateRanges,
   User,
   UserView,
-  c,
-  SC,
-  d3
+  HeaderView
 ){
+  
   'use strict';
 
-  var userModel = new User(),
-      periodMap = c('periodMap');
+  var router = new Router(),
+      userModel = new User(),
+      periodMap = c('periodMap'),
+      vent =  _.extend({}, Backbone.Events);
+
+  Backbone.history.start({pushState: true});
 
   $('.loading').html('<div><img src="img/cloud.png" /><span>Loading...</span></div>');
 
@@ -35,6 +42,15 @@ define([
       model: userModel,
     });
 
+    var header = new HeaderView({
+      links: (function(periods) {
+        return _.map(periods, function(val, key, list) {
+          return { href: '/likes/' + key.toLowerCase(), text: val };
+        });
+      })(c('periodMap')),
+      vent: vent
+    });
+    
     _.keys(periodMap).forEach(function(period) {
       var slice = userModel.get('favourites').getRange(period, 'Desc'),
           favouritesView = new FavouritesSectionView({
@@ -47,4 +63,9 @@ define([
           });
     });
   });
+
+  vent.on('like:periodChange', function(data) {
+    router.navigate('/likes/' + data.period, {trigger: true});
+  });
+
 });

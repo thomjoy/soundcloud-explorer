@@ -1,16 +1,16 @@
 define(['backbone'], function(Backbone) {
   return Backbone.Router.extend({
     routes: {
-      "":              "likes",
-      "likes":         "likes"
+      "":              "",
+      "likes/:period": "likes"
     },
 
     initialize: function() {
       console.log('Router active');
     },
 
-    likes: function(query) {
-      console.log('/likes');
+    likes: function(period) {
+      console.log('likes/' + period);
     }
     
   });

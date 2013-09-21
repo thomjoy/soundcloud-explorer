@@ -1,4 +1,5 @@
 define([
+  'soundcloud',
   'd3',
   'constants',
   'router',
@@ -9,6 +10,7 @@ define([
   'm/user',
   'v/user'
 ], function(
+  SC,
   d3,
   c,
   Router,
@@ -28,10 +30,16 @@ define([
 
   Backbone.history.start({pushState: true});
 
+
   $('.loading').html('<div><img src="img/cloud.png" /><span>Loading...</span></div>');
 
   // kick things off
   $.when( userModel.fetch() ).done(function() {
+
+      console.log(router);
+      debugger;
+
+
     $('.loading').hide();
     $('.overlay').removeClass('active').hide();
 

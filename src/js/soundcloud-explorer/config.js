@@ -1,3 +1,7 @@
+var globalConfig = {
+  callback: 'http://localhost:8000/callback.html'
+};
+
 requirejs.config({
   baseUrl:      'js/lib',
   waitSeconds:  30,
@@ -15,6 +19,7 @@ requirejs.config({
     dateranges: '../soundcloud-explorer/dateranges',
     templates: '../soundcloud-explorer/templates',
     router: '../soundcloud-explorer/router',
+    main: '../soundcloud-explorer/main',
 
     // plugins
     async:                      'requirejs-plugins/src/async',
@@ -57,7 +62,7 @@ requirejs.config({
       init: function() {
         SC.initialize({
           client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
-          redirect_uri: 'http://localhost:9999/callback.html'
+          redirect_uri: globalConfig.callback
         });
       }
     }
@@ -68,8 +73,8 @@ requirejs.config({
 /*define('soundcloud', ['async!//connect.soundcloud.com/sdk.js!callback'], function() {
   console.log('Got SC');
   return window.SC;
-});
-*/
+});*/
+
 
 // Define moment and moment-range in one go
 require({ paths: {
@@ -80,6 +85,5 @@ require({ paths: {
 
 // start the app
 require(['app/main'], function() {
-
-  console.log('App loaded');
+  console.log('Application loaded');
 });

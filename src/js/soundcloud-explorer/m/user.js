@@ -21,11 +21,6 @@ define([
           _this = this,
           favourites = [];
 
-      SC.initialize({
-        client_id: '9d440de30aed58dd6f5d2ecd754ab5a6',
-        redirect_uri: 'http://localhost:9999/callback.html'
-      });
-
       SC.connect(function() {
         SC.get('/me', function(user) {
           _this.set(user);
