@@ -8,7 +8,8 @@ define([
   'dateranges',
   'm/user',
   'v/user',
-  'v/header'
+  'v/header',
+  'v/dashboard'
 ], function(
   d3,
   c,
@@ -19,7 +20,8 @@ define([
   DateRanges,
   User,
   UserView,
-  HeaderView
+  HeaderView,
+  DashboardView
 ){
   
   'use strict';
@@ -42,16 +44,21 @@ define([
       model: userModel,
     });
 
-    var header = new HeaderView({
+    var headerView = new HeaderView({
       links: (function(periods) {
-        return _.map(periods, function(val, key, list) {
-          return { href: '/likes/' + key.toLowerCase(), text: val };
+        return _.map(_.extend(periods, {"everything": "Everything"}), function(val, key, list) {
+          return { value: key.toLowerCase(), text: val };
         });
       })(c('periodMap')),
-      vent: vent
+      vent: vent,
+      userName: userModel.get('username') || 'tomjoy_'
     });
-    
-    _.keys(periodMap).forEach(function(period) {
+
+    var dashboardView = new DashboardView({
+      user: userModel
+    });
+
+    /*_.keys(periodMap).forEach(function(period) {
       var slice = userModel.get('favourites').getRange(period, 'Desc'),
           favouritesView = new FavouritesSectionView({
             period: periodMap[period],
@@ -62,6 +69,7 @@ define([
             })
           });
     });
+    */
   });
 
   vent.on('like:periodChange', function(data) {

@@ -16,7 +16,7 @@ define([
     initialize: function() {
       _.extend(this, this.options);
       this.listenTo(this.model, 'change', this.render);
-      this.render();
+      //this.render();
     },
 
     render: function() {

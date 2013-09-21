@@ -9,12 +9,12 @@ define([
   return Backbone.View.extend({
 
     tagName: 'header',
-    className: 'sc-header',
+    className: "navbar navbar-inverse navbar-fixed-top",
 
     template: templates.header,
 
     events: {
-      'click a': 'handleMenuClick'
+      'change select': 'handleMenuSelect'
     },
 
     initialize: function() {
@@ -24,16 +24,14 @@ define([
 
     render: function() {
       this.$el
-        .html(_.template(this.template, { links: this.links }))
+        .html(_.template(this.template, { links: this.links, userName: this.userName || '' }))
         .prependTo('body');
     },
 
-    handleMenuClick: function(evt) {
+    handleMenuSelect: function(evt) {
       evt.preventDefault();
-      var link = evt.currentTarget;
-      this.vent.trigger('like:periodChange', {
-        period: link.href.substr((link.href.lastIndexOf('/') + 1), link.href.length)
-      });
+      var p = evt.currentTarget.value;
+      this.vent.trigger('like:periodChange', { period: p });
     }
   });
 });

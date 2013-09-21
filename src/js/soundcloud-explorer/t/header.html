@@ -1,6 +1,18 @@
-<h1></h1>
-<ul>
-  <% _.each(links, function(link) { %>
-  <li><a href="<%= link.href %>"><%= link.text %></a></li> 
-  <% }); %> 
-</ul>
+<!--<div class="container">-->
+  <div class="navbar-header">
+    <h1></h1>
+    <div><%= userName %></div>
+  </div>
+  <div class="form-holder">
+    <label for="likes-period">Filter <span>&hearts;</span></label>
+    <select id="likes-period">
+      <% _.each(links, function(link) { %>
+      <option value="<%= link.value %>"><%= link.text %></option>
+      <% }); %> 
+    </select>
+  </div>
+<!--</div>-->
+
+
+
+
