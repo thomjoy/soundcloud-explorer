@@ -18,7 +18,6 @@ define([
   UserView
 ){
   'use strict';
-
   var userModel = new User(),
       periodMap = c('periodMap');
 
