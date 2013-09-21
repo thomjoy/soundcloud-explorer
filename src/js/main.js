@@ -1,6 +1,7 @@
 define([
   'd3',
   'constants',
+  'router',
   'c/favourites',
   'v/favouritelist',
   'v/favouritesection',
@@ -10,6 +11,7 @@ define([
 ], function(
   d3,
   c,
+  Router,
   FavouritesCollection,
   FavouritesListView,
   FavouritesSectionView,
@@ -17,9 +19,14 @@ define([
   User,
   UserView
 ){
+  
   'use strict';
-  var userModel = new User(),
+
+  var router = new Router(),
+      userModel = new User(),
       periodMap = c('periodMap');
+
+  Backbone.history.start({pushState: true});
 
   $('.loading').html('<div><img src="img/cloud.png" /><span>Loading...</span></div>');
 

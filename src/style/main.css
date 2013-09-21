@@ -74,7 +74,6 @@ h1 {
 }
 
 #sidebar img { 
-  inset 0 0 1px rgba(255,255,255,.65);
   border: 1px solid #555;
   width: 64px;
   margin-top: 10px;

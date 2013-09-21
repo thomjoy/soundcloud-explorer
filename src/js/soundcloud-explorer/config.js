@@ -14,6 +14,7 @@ requirejs.config({
     constants: '../soundcloud-explorer/constants',
     dateranges: '../soundcloud-explorer/dateranges',
     templates: '../soundcloud-explorer/templates',
+    router: '../soundcloud-explorer/router',
 
     // plugins
     async:                      'requirejs-plugins/src/async',
@@ -79,5 +80,6 @@ require({ paths: {
 
 // start the app
 require(['app/main'], function() {
+
   console.log('App loaded');
 });
