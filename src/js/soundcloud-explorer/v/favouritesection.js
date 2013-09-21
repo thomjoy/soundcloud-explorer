@@ -30,9 +30,12 @@ define([
         count: countString
       }));
 
-      this.$el.append(this.favouritesListView.$el);
+      this.$el.append(this.favouritesListView.$el).hide();
       $('#sc-main').empty();
-      this.$el.appendTo('#sc-main');
+      this.$el.appendTo('#sc-main').show();
+      this.$el.animate({ top: "+=48" }, 250, function() {
+        // Animation complete.
+      });
     },
   });
 });

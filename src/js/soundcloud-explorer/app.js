@@ -62,11 +62,8 @@ define([
         });
       },
 
-      likes: function(opts) {
-        
+      likes: function(opts) { 
         var periodMap = c('periodMap');
-
-        console.log(opts);
 
         if( opts.period === 'everything' ) {
           _.keys(periodMap).forEach(function(period) {
