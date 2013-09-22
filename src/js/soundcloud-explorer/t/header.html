@@ -3,9 +3,9 @@
   <div><%= userName %></div>
 </div>
 <div class="form-holder">
-  <label for="likes-period">Filter <span>&hearts;</span></label>
+  <label for="likes-period"><span>&#10084;</span></label>
   <select id="likes-period">
-    <option>-- Filter by date --</option>
+    <option>Filter by date</option>
     <% _.each(links, function(link) { %>
     <option value="<%= link.value %>"><%= link.text %></option>
     <% }); %> 

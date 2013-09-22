@@ -48,6 +48,7 @@ header {
   width: 100%;
   padding-top: 4px;
   padding-bottom: 4px;
+  border-bottom: 4px solid #FF3500;
 
   .navbar-header { 
     overflow: hidden;
@@ -80,7 +81,7 @@ header {
     width: 300px; 
     float: left;
     margin-left: 20px;
-    margin-top: 2px;
+    margin-top: 4px;
 
     label { 
       font-size: 12px;
@@ -164,7 +165,7 @@ header {
   *  Likes
  *  
 */
-.likes-header { }
+.likes-header { width: 100%; }
 .period-title {
   margin: 0; 
   clear: both; 
@@ -195,6 +196,23 @@ header {
   top: 0px;
   /*margin-top: 48px;*/
   margin-bottom: 48px;
+  width: 100%;
+
+  .no-tracks {
+    margin-top: 100px;
+    margin-left: 10px;
+    font-size: 64px;
+    color: #fff;
+
+    :before {
+      content: "";
+      position:absolute;
+      color:rgba(0,0,0,0.1);
+      top: -1px;
+      left: -1px;
+      padding: 50px;
+    }
+  }
 }
 
 .favourites-period { 

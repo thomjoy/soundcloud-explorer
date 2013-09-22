@@ -62,33 +62,20 @@ define([
         });
       },
 
-      likes: function(opts) { 
-        var periodMap = c('periodMap');
+      likes: function(opts) {
+        var periodMap = c('periodMap'),
+            slice,
+            favouritesView;
 
-        if( opts.period === 'everything' ) {
-          _.keys(periodMap).forEach(function(period) {
-            var slice = opts.user.get('favourites').getRange(period, 'Desc'),
-                favouritesView = new FavouritesSectionView({
-                  period: periodMap[period],
-                  count: slice.length,
-                  total: opts.user.get('favourites').length,
-                  favouritesListView: new FavouritesListView({
-                    collection: slice
-                  })
-                });
-          });
-        }
-        else {
-          var slice = opts.user.get('favourites').getRange(opts.period, 'Desc'),
-              favouritesView = new FavouritesSectionView({
-                period: periodMap[opts.period],
-                count: slice.length,
-                total: opts.user.get('favourites').length,
-                favouritesListView: new FavouritesListView({
-                  collection: slice
-                })
-              });
-        }
+        slice = opts.user.get('favourites').getRange(opts.period, 'Desc');
+        favouritesView = new FavouritesSectionView({
+          period: periodMap[opts.period],
+          count: slice.length,
+          total: opts.user.get('favourites').length,
+          favouritesListView: new FavouritesListView({
+            collection: slice
+          })
+        });
       },
 
       trends: function() {

@@ -72,6 +72,9 @@ define([
           range = moment().range(start, end);
 
       return range.contains(moment(new Date(d)));
+    },
+    everything: function(d) {
+      return true;
     }
   };
 });

@@ -10,6 +10,7 @@ define([
     className: 'favourites-section',
 
     template: templates.favourites,
+    noTracksTemplate: '<h5 class="no-tracks">No tracks</h5>',
 
     id: function() { return this.options.period.replace(' ', '-').toLowerCase() + '-container'; },
 
@@ -25,17 +26,24 @@ define([
         else return c + ' tracks';
       })(this.count);
 
-      this.$el.html(_.template(this.template, {
-        period: this.period,
-        count: countString
-      }));
+      if( this.count > 0 ) {
+        this.$el.html(_.template(this.template, {
+          period: this.period,
+          count: countString
+        }));
 
-      this.$el.append(this.favouritesListView.$el).hide();
-      $('#sc-main').empty();
-      this.$el.appendTo('#sc-main').show();
-      this.$el.animate({ top: "+=48" }, 250, function() {
-        // Animation complete.
-      });
+        this.$el.append(this.favouritesListView.$el).hide();
+        $('#sc-main').empty();
+        this.$el.appendTo('#sc-main').show();
+        this.$el.animate({ top: "+=48" }, 250, function() {
+          // Animation complete.
+        });
+      }
+      else {
+        $('#sc-main').empty();
+        this.$el.html(this.noTracksTemplate);
+        this.$el.appendTo('#sc-main').show();
+      }
     },
   });
 });
